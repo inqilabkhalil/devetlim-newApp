@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toğrul & Xumar — Toy Dəvətnaməsi</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Cormorant Garamond (luxury serif) + Cinzel (decorative) + Lato (body) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ============================================================
+       CURTAIN INTRO
+       ============================================================ -->
+  <div id="curtain-container">
+    <!-- Left curtain panel -->
+    <div class="curtain curtain-left">
+      <!-- Decorative folds via pseudo-elements in CSS -->
+      <div class="curtain-shine"></div>
+    </div>
+
+    <!-- Right curtain panel -->
+    <div class="curtain curtain-right">
+      <div class="curtain-shine"></div>
+    </div>
+
+
+  </div>
+
+  <!-- ============================================================
+       MAIN INVITATION WRAPPER
+       ============================================================ -->
+  <div id="invitation-wrapper" class="hidden">
+
+    <!-- Ambient background particles / petals -->
+    <div id="petals-container" aria-hidden="true">
+      <!-- JS will inject petal elements here -->
+    </div>
+
+    <!-- ---- CARD 1 : COUPLE NAMES ---- -->
+    <section class="card" id="card-1" data-card="1">
+      <div class="card-inner">
+        <!-- Top floral ornament -->
+        <div class="ornament ornament-top" aria-hidden="true">
+          <svg viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="28" dominant-baseline="middle" text-anchor="middle" font-family="serif" font-size="7" fill="#b8962e">❧ ✦ ❧</text></svg>
+        </div>
+
+        <p class="card-label">— Toy Dəvətnaməsi —</p>
+
+        <!-- Groom name -->
+        <h1 class="groom-name">Toğrul</h1>
+
+        <!-- Ampersand divider -->
+        <div class="ampersand-wrap">
+          <div class="ampersand-line"></div>
+          <span class="ampersand">&amp;</span>
+          <div class="ampersand-line"></div>
+        </div>
+
+        <!-- Bride name -->
+        <h1 class="bride-name">Xumar</h1>
+
+        <p class="card-tagline">İki ürək, bir ömür…</p>
+
+        <!-- Bottom floral ornament -->
+        <div class="ornament ornament-bottom" aria-hidden="true">
+          <svg viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="28" dominant-baseline="middle" text-anchor="middle" font-family="serif" font-size="7" fill="#b8962e">❦ ✦ ❦</text></svg>
+        </div>
+
+        <div class="card-nav">
+          <button class="btn-next" onclick="goToCard(2)">
+            <span>Davam Et</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- CARD 2 : INVITATION TEXT ---- -->
+    <section class="card hidden-card" id="card-2" data-card="2">
+      <div class="card-inner">
+        <div class="ornament ornament-top" aria-hidden="true">
+          <svg viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="28" dominant-baseline="middle" text-anchor="middle" font-family="serif" font-size="7" fill="#b8962e">❧ ✦ ❧</text></svg>
+        </div>
+
+        <p class="card-label">— Dəvət —</p>
+
+        <!-- EDIT: Invitation text in Azerbaijani -->
+        <p class="invitation-body">
+          Hörmətli qonaqlarımız,
+        </p>
+        <p class="invitation-body italic">
+          Həyatımızın ən gözəl günündə – toy mərasimimizdə sizi yanımızda görmək bizim üçün böyük sevinc olardı.
+        </p>
+        <p class="invitation-body">
+          Sevgi ilə dolu bu xüsusi günü sizinlə bölüşmək istəyirik.
+        </p>
+
+        <div class="gold-divider">
+          <div class="divider-line"></div>
+          <div class="divider-hearts" aria-hidden="true">
+            <span class="dh dh1">&#9829;</span>
+            <span class="dh dh2">&#9829;</span>
+            <span class="dh dh3">&#9829;</span>
+          </div>
+          <div class="divider-line"></div>
+        </div>
+
+        <p class="invitation-quote">
+          "Sevgi səbr edər, sevgi mehribandır…"
+        </p>
+
+        <div class="card-nav">
+          <button class="btn-prev" onclick="goToCard(1)">
+            <svg class="btn-arrow flip" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+            <span>Geri</span>
+          </button>
+          <button class="btn-next" onclick="goToCard(3)">
+            <span>Davam Et</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- CARD 3 : DATE & COUNTDOWN ---- -->
+    <section class="card hidden-card" id="card-3" data-card="3">
+      <div class="card-inner">
+        <div class="ornament ornament-top" aria-hidden="true">
+          <svg viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="28" dominant-baseline="middle" text-anchor="middle" font-family="serif" font-size="7" fill="#b8962e">❧ ✦ ❧</text></svg>
+        </div>
+
+        <p class="card-label">— Tarix &amp; Vaxt —</p>
+
+        <!-- EDIT: Wedding date display -->
+        <div class="date-display">
+          <div class="date-block">
+            <span class="date-num">23</span>
+            <span class="date-sub">Gün</span>
+          </div>
+          <div class="date-sep">·</div>
+          <div class="date-block">
+            <span class="date-num">İyul</span>
+            <span class="date-sub">Ay</span>
+          </div>
+          <div class="date-sep">·</div>
+          <div class="date-block">
+            <span class="date-num">2026</span>
+            <span class="date-sub">İl</span>
+          </div>
+        </div>
+
+        <!-- EDIT: Time -->
+        <p class="wedding-time">Saat <strong>18:00</strong></p>
+
+        <div class="gold-divider slim">
+          <div class="divider-line"></div>
+          <span class="divider-text">Geri sayım</span>
+          <div class="divider-line"></div>
+        </div>
+
+        <!-- Countdown timer — JS populates the values -->
+        <div class="countdown" id="countdown">
+          <div class="count-box">
+            <span class="count-num" id="cnt-days">00</span>
+            <span class="count-label">Gün</span>
+          </div>
+          <div class="count-colon">:</div>
+          <div class="count-box">
+            <span class="count-num" id="cnt-hours">00</span>
+            <span class="count-label">Saat</span>
+          </div>
+          <div class="count-colon">:</div>
+          <div class="count-box">
+            <span class="count-num" id="cnt-mins">00</span>
+            <span class="count-label">Dəqiqə</span>
+          </div>
+          <div class="count-colon">:</div>
+          <div class="count-box">
+            <span class="count-num" id="cnt-secs">00</span>
+            <span class="count-label">Saniyə</span>
+          </div>
+        </div>
+
+        <div class="card-nav">
+          <button class="btn-prev" onclick="goToCard(2)">
+            <svg class="btn-arrow flip" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+            <span>Geri</span>
+          </button>
+          <button class="btn-next" onclick="goToCard(4)">
+            <span>Davam Et</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- CARD 4 : VENUE ---- -->
+    <section class="card hidden-card" id="card-4" data-card="4">
+      <div class="card-inner">
+        <div class="ornament ornament-top" aria-hidden="true">
+          <svg viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="28" dominant-baseline="middle" text-anchor="middle" font-family="serif" font-size="7" fill="#b8962e">❧ ✦ ❧</text></svg>
+        </div>
+
+        <p class="card-label">— Məkan —</p>
+
+        <!-- EDIT: Venue name -->
+        <h2 class="venue-name">Grand Palace Banquet Hall</h2>
+
+        <!-- EDIT: Venue address -->
+        <address class="venue-address">
+          Nizami küçəsi 12,<br />
+          Bakı, Azərbaycan
+        </address>
+
+        <!-- EDIT: Replace the src URL with your actual Google Maps embed URL -->
+        <div class="map-wrapper">
+          <iframe
+            id="map-frame"
+            title="Wedding Venue Map"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3038.0!2d49.8671!3d40.4093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNjDCsDA0JzAuMCJFIDQwwrAyNCcwLjAiTg!5e0!3m2!1saz!2saz!4v1234567890">
+          </iframe>
+        </div>
+
+        <!-- EDIT: Replace href with your Google Maps link -->
+        <a class="btn-map"
+           href="https://maps.google.com/?q=Nizami+k%C3%BC%C3%A7%C9%99si+12+Bak%C4%B1"
+           target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Xəritədə Aç
+        </a>
+
+        <div class="card-nav">
+          <button class="btn-prev" onclick="goToCard(3)">
+            <svg class="btn-arrow flip" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+            <span>Geri</span>
+          </button>
+          <button class="btn-next" onclick="goToCard(5)">
+            <span>Davam Et</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- CARD 5 : CLOSING / RSVP ---- -->
+    <section class="card hidden-card" id="card-5" data-card="5">
+      <div class="card-inner">
+
+        <!-- Heart animation -->
+        <div class="heart-bloom" id="heart-bloom" aria-hidden="true">❤</div>
+
+        <p class="card-label">— Sona Qədər —</p>
+
+        <h2 class="closing-title">Sizi Gözləyirik</h2>
+
+        <!-- EDIT: Closing message -->
+        <p class="closing-body">
+          Bu unudulmaz günü bizimlə bölüşəcəyinizə ümid edirik.<br />
+          Sizin həzz və sevginizdən güc alaraq bu yeni həyat yoluna addımlayacağıq.
+        </p>
+
+        <p class="closing-names">Toğrul &amp; Xumar</p>
+
+        <!-- Restart button to replay the experience -->
+        <div style="margin-top: 1.5rem;">
+          <button class="btn-restart" onclick="restartExperience()">
+            ↺ Yenidən Bax
+          </button>
+        </div>
+
+        <div class="card-nav">
+          <button class="btn-prev" onclick="goToCard(4)">
+            <svg class="btn-arrow flip" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+            <span>Geri</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /invitation-wrapper -->
+
+  <script src="script.js"></script>
+</body>
+</html>
