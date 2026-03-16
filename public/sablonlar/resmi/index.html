@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nisanur &amp; Hamza — Dəvətnamə</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@300;400&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ivory:#fbf8f2;--black:#1c1a17;--charcoal:#2e2b26;
+  --gray:#8a8478;--lgray:#cdc8bc;--gold:#b8966a;--gold-lt:#d4b896;--gold-dk:#9a7a52;
+}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Cormorant Garamond',serif;color:var(--black);}
+body{background:radial-gradient(ellipse 70% 60% at 50% 38%,#fdf9f2 0%,#ede1cc 100%);}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");}
+#petal-canvas{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity 2s ease;}
+#petal-canvas.visible{opacity:1;}
+
+/* OPENING */
+#opening{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse 90% 80% at 50% 44%,#fdf9f1 0%,#ece0c8 100%);
+  transition:opacity 1s ease,transform 1s ease;}
+#opening.hide{opacity:0;transform:scale(1.05);pointer-events:none;}
+.open-top{display:flex;align-items:center;gap:1.2rem;margin-bottom:2.8rem;opacity:0;animation:fadeSlideUp 1.4s 0.5s forwards;}
+.open-top-line{width:50px;height:0.5px;background:linear-gradient(90deg,transparent,var(--gold));}
+.open-top-line.right{background:linear-gradient(90deg,var(--gold),transparent);}
+.open-top-text{font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold);}
+#flower-btn{cursor:pointer;background:none;border:none;outline:none;position:relative;width:180px;height:180px;
+  display:flex;align-items:center;justify-content:center;opacity:0;animation:fadeSlideUp 1.4s 0.9s forwards;}
+#flower-btn::before,#flower-btn::after{content:'';position:absolute;border-radius:50%;border:0.5px solid var(--gold);animation:pulse-ring 2.8s ease-out infinite;}
+#flower-btn::before{width:140px;height:140px;animation-delay:0s;}
+#flower-btn::after{width:172px;height:172px;animation-delay:1.4s;}
+@keyframes pulse-ring{0%{transform:scale(0.84);opacity:0.55;}80%{transform:scale(1.16);opacity:0;}100%{transform:scale(1.16);opacity:0;}}
+#flower-btn:hover #opening-flower{transform:rotate(10deg) scale(1.05);}
+#opening-flower{transition:transform 0.5s ease;filter:drop-shadow(0 6px 28px rgba(184,150,106,0.30));}
+.open-hint-bottom{margin-top:2.4rem;font-family:'Cormorant Garamond',serif;font-size:clamp(0.75rem,2vw,0.85rem);
+  font-style:italic;letter-spacing:0.14em;color:var(--lgray);opacity:0;animation:fadeSlideUp 1.4s 1.3s forwards;}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.burst-petal{position:fixed;border-radius:50% 50% 50% 30%/60% 60% 40% 40%;background:var(--gold);opacity:0;pointer-events:none;z-index:200;}
+
+/* INVITATION */
+#invitation{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 1.2s ease 0.2s;}
+#invitation.visible{opacity:1;pointer-events:auto;}
+#card-viewport{position:relative;width:min(410px,93vw);height:min(572px,87vh);perspective:1600px;}
+.page{position:absolute;inset:0;background:var(--ivory);border-radius:2px;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:2.8rem 3rem 4.5rem;text-align:center;
+  box-shadow:0 2px 4px rgba(0,0,0,0.05),0 8px 24px rgba(0,0,0,0.08),0 26px 64px rgba(0,0,0,0.10),0 44px 88px rgba(0,0,0,0.05),inset 0 0 0 0.5px rgba(184,150,106,0.22);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='350' height='350'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='350' height='350' filter='url(%23n)' opacity='0.048'/%3E%3C/svg%3E");
+  transition:transform 0.7s cubic-bezier(0.77,0,0.175,1),opacity 0.7s cubic-bezier(0.77,0,0.175,1);}
+.page::before{content:'';position:absolute;inset:12px;border:0.5px solid rgba(184,150,106,0.26);border-radius:1px;pointer-events:none;z-index:0;}
+.page::after{content:'';position:absolute;inset:17px;border:0.5px solid rgba(184,150,106,0.11);border-radius:1px;pointer-events:none;z-index:0;}
+.corner{position:absolute;z-index:1;pointer-events:none;opacity:0.55;}
+.corner.tl{top:6px;left:6px;}.corner.tr{top:6px;right:6px;transform:scaleX(-1);}
+.corner.bl{bottom:6px;left:6px;transform:scaleY(-1);}.corner.br{bottom:6px;right:6px;transform:scale(-1);}
+.page>*{position:relative;z-index:2;}
+.page.active{transform:translateX(0) scale(1);opacity:1;z-index:2;}
+.page.prev{transform:translateX(-108%) scale(0.97);opacity:0;z-index:1;}
+.page.next{transform:translateX(108%) scale(0.97);opacity:0;z-index:1;}
+.page.hidden{transform:translateX(108%) scale(0.97);opacity:0;z-index:1;}
+
+.page-label{font-family:'Montserrat',sans-serif;font-size:0.57rem;font-weight:400;letter-spacing:0.36em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+.divider{display:flex;align-items:center;gap:0.65rem;margin:1.1rem auto;width:100%;justify-content:center;}
+.divider-line{flex:1;max-width:54px;height:0.5px;background:linear-gradient(90deg,transparent,var(--gold-lt),transparent);}
+.divider-diamond{width:5px;height:5px;border:0.5px solid var(--gold);transform:rotate(45deg);flex-shrink:0;}
+
+/* PAGE 1 */
+.p1-names{font-family:'Great Vibes',cursive;font-size:clamp(2.8rem,11vw,3.9rem);font-weight:400;line-height:1.05;color:var(--charcoal);}
+.p1-amp{font-family:'Cormorant Garamond',serif;font-size:clamp(0.88rem,3.4vw,1.04rem);font-weight:300;letter-spacing:0.28em;color:var(--gold);display:block;margin:0.28rem 0;}
+.p1-tagline{font-size:clamp(0.8rem,2.5vw,0.93rem);font-style:italic;font-weight:300;color:var(--gray);letter-spacing:0.04em;line-height:1.75;margin-top:0.85rem;}
+.p1-families{font-family:'Montserrat',sans-serif;font-size:0.57rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--lgray);margin-top:0.55rem;}
+.floral-art{margin:0.7rem auto 0;display:block;}
+
+/* PAGE 2 */
+.p2-date{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,5vw,1.75rem);font-weight:300;letter-spacing:0.14em;color:var(--charcoal);margin-bottom:0.2rem;}
+.p2-time{font-family:'Montserrat',sans-serif;font-size:0.68rem;letter-spacing:0.26em;color:var(--gold-lt);}
+#countdown{display:flex;gap:0.45rem;justify-content:center;margin-top:1.4rem;}
+.cd-unit{display:flex;flex-direction:column;align-items:center;min-width:52px;
+  border:0.5px solid rgba(184,150,106,0.28);border-radius:1px;
+  padding:0.72rem 0.4rem 0.5rem;background:rgba(184,150,106,0.03);}
+.cd-num{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,5.4vw,1.85rem);font-weight:300;color:var(--charcoal);line-height:1;}
+.cd-label{font-family:'Montserrat',sans-serif;font-size:0.46rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--lgray);margin-top:0.35rem;}
+.cd-sep{font-size:0.85rem;color:var(--gold-lt);align-self:center;}
+
+/* PAGE 3 */
+.p3-address{font-size:clamp(0.95rem,3.4vw,1.1rem);font-weight:300;line-height:2.1;color:var(--charcoal);letter-spacing:0.05em;}
+.map-btn{display:inline-flex;align-items:center;gap:0.5rem;margin-top:1.4rem;
+  padding:0.7rem 1.8rem;border:0.5px solid var(--gold);background:transparent;
+  font-family:'Montserrat',sans-serif;font-size:0.57rem;letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--gold-dk);cursor:pointer;text-decoration:none;
+  transition:background 0.35s,color 0.35s,letter-spacing 0.3s;border-radius:1px;}
+.map-btn:hover{background:var(--charcoal);border-color:var(--charcoal);color:var(--ivory);letter-spacing:0.32em;}
+
+/* PAGE 4 */
+.p4-message{font-size:clamp(0.88rem,3vw,1.01rem);font-style:italic;font-weight:300;line-height:1.95;color:var(--charcoal);letter-spacing:0.03em;max-width:28ch;margin:0 auto;}
+#heart-wrap{position:relative;width:64px;height:64px;margin:1.5rem auto 0;}
+.heart-svg{animation:heartbeat 2s ease-in-out infinite;transform-origin:center;}
+@keyframes heartbeat{0%,100%{transform:scale(1);}14%{transform:scale(1.2);}28%{transform:scale(1);}42%{transform:scale(1.12);}56%{transform:scale(1);}}
+.float-heart{position:absolute;color:var(--gold);opacity:0;animation:floatUp 3.2s ease-in infinite;}
+@keyframes floatUp{0%{opacity:0.7;transform:translateY(0) scale(1);}100%{opacity:0;transform:translateY(-80px) scale(0.3);}}
+.p4-names-final{font-family:'Great Vibes',cursive;font-size:clamp(1.6rem,6vw,2.15rem);color:var(--gold-dk);margin-top:0.3rem;}
+.p4-date-final{font-family:'Montserrat',sans-serif;font-size:0.54rem;letter-spacing:0.34em;text-transform:uppercase;color:var(--lgray);margin-top:0.3rem;}
+
+/* NAV */
+#nav{position:absolute;bottom:1.4rem;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:1.2rem;z-index:5;}
+.nav-btn{width:34px;height:34px;border:0.5px solid rgba(184,150,106,0.42);border-radius:50%;
+  background:rgba(251,248,242,0.88);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.3s,border-color 0.3s;backdrop-filter:blur(8px);}
+.nav-btn:hover{background:var(--charcoal);border-color:var(--charcoal);}
+.nav-btn svg path{stroke:var(--gold-dk);transition:stroke 0.3s;}
+.nav-btn:hover svg path{stroke:var(--ivory);}
+#dots{display:flex;gap:8px;align-items:center;}
+.dot{width:5px;height:5px;border:0.5px solid var(--lgray);transform:rotate(45deg);
+  transition:background 0.3s,border-color 0.3s,transform 0.3s;cursor:pointer;}
+.dot.active{background:var(--gold);border-color:var(--gold);transform:rotate(45deg) scale(1.4);}
+@media(max-height:600px){.page{padding:1.4rem 2rem 3.6rem;}.p1-names{font-size:2.4rem;}}
+</style>
+</head>
+<body>
+<canvas id="petal-canvas"></canvas>
+
+<div id="opening">
+  <div class="open-top">
+    <span class="open-top-line"></span>
+    <span class="open-top-text">Dəvətnaməni açın</span>
+    <span class="open-top-line right"></span>
+  </div>
+  <button id="flower-btn" aria-label="Dəvətnaməni aç">
+    <svg id="opening-flower" width="160" height="160" viewBox="0 0 160 160" fill="none">
+      <path d="M80 150 Q77 126 80 94 Q83 72 80 50" stroke="#b8966a" stroke-width="1.3" stroke-linecap="round"/>
+      <path d="M80 110 Q58 102 46 88" stroke="#b8966a" stroke-width="1" stroke-linecap="round"/>
+      <path d="M80 98 Q102 90 112 76" stroke="#b8966a" stroke-width="1" stroke-linecap="round"/>
+      <path d="M46 88 Q38 74 48 64 Q55 78 46 88Z" stroke="#b8966a" stroke-width="1" fill="none"/>
+      <path d="M112 76 Q120 62 110 52 Q103 66 112 76Z" stroke="#b8966a" stroke-width="1" fill="none"/>
+      <path d="M80 94 Q68 84 71 72 Q80 78 80 94Z" stroke="#b8966a" stroke-width="1" fill="none"/>
+      <path d="M80 50 Q68 34 73 18 Q84 30 80 50Z" stroke="#b8966a" stroke-width="1.1" fill="none"/>
+      <path d="M80 50 Q96 40 108 26 Q98 44 80 50Z" stroke="#b8966a" stroke-width="1.1" fill="none"/>
+      <path d="M80 50 Q62 44 52 30 Q70 34 80 50Z" stroke="#b8966a" stroke-width="1.1" fill="none"/>
+      <path d="M80 50 Q92 60 106 56 Q94 44 80 50Z" stroke="#b8966a" stroke-width="1.1" fill="none"/>
+      <path d="M80 50 Q66 60 54 56 Q66 44 80 50Z" stroke="#b8966a" stroke-width="1.1" fill="none"/>
+      <circle cx="80" cy="50" r="5" stroke="#b8966a" stroke-width="1" fill="rgba(184,150,106,0.14)"/>
+      <path d="M80 50 Q76 38 80 28 Q84 38 80 50Z" stroke="#b8966a" stroke-width="0.9" fill="none"/>
+      <circle cx="80" cy="26" r="2.5" stroke="#b8966a" stroke-width="0.9" fill="none"/>
+    </svg>
+  </button>
+  <p class="open-hint-bottom">klikləyin</p>
+</div>
+
+<div id="invitation">
+  <div id="card-viewport">
+    <template id="corner-svg">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+        <path d="M2 24 L2 2 L24 2" stroke="#b8966a" stroke-width="0.65" stroke-linecap="round"/>
+        <circle cx="2" cy="2" r="1.5" fill="#b8966a" opacity="0.55"/>
+        <path d="M6 11 Q9 7 13 9" stroke="#b8966a" stroke-width="0.5" stroke-linecap="round" fill="none"/>
+      </svg>
+    </template>
+
+    <!-- PAGE 1 -->
+    <div class="page active" data-page="0">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="page-label">Dəvət</span>
+      <div class="p1-names">Nisanur<span class="p1-amp">— &amp; —</span>Hamza</div>
+      <div class="divider"><span class="divider-line"></span><span class="divider-diamond"></span><span class="divider-line"></span></div>
+      <p class="p1-tagline">Birlikdə bir ömür,<br>sevgi dolu anlar üçün ilk addım.</p>
+      <p class="p1-families">Ormancı &amp; Kayı ailəlləri</p>
+      <svg class="floral-art" width="94" height="72" viewBox="0 0 94 72" fill="none">
+        <path d="M47 70 Q44 52 47 33 Q50 19 47 7" stroke="#d4b896" stroke-width="1" stroke-linecap="round"/>
+        <path d="M47 45 Q29 37 19 25" stroke="#d4b896" stroke-width="0.9" stroke-linecap="round"/>
+        <path d="M47 35 Q65 27 73 15" stroke="#d4b896" stroke-width="0.9" stroke-linecap="round"/>
+        <path d="M19 25 Q12 15 20 7 Q27 17 19 25Z" stroke="#d4b896" stroke-width="0.9" fill="none"/>
+        <path d="M73 15 Q80 5 72 -3 Q65 7 73 15Z" stroke="#d4b896" stroke-width="0.9" fill="none"/>
+        <path d="M47 7 Q41 -3 47 -9 Q53 -3 47 7Z" stroke="#d4b896" stroke-width="0.9" fill="none"/>
+        <circle cx="47" cy="7" r="2.8" stroke="#d4b896" stroke-width="0.9" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page hidden" data-page="1">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="page-label">Tarix</span>
+      <p class="p2-date">26 Temmuz 2026</p>
+      <p class="p2-time">Saat&nbsp;&nbsp;19 : 00</p>
+      <div class="divider" style="margin-top:1.4rem"><span class="divider-line"></span><span class="divider-diamond"></span><span class="divider-line"></span></div>
+      <div id="countdown">
+        <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-label">Gün</span></div>
+        <span class="cd-sep">·</span>
+        <div class="cd-unit"><span class="cd-num" id="cd-h">--</span><span class="cd-label">Saat</span></div>
+        <span class="cd-sep">·</span>
+        <div class="cd-unit"><span class="cd-num" id="cd-m">--</span><span class="cd-label">Dəqiqə</span></div>
+        <span class="cd-sep">·</span>
+        <div class="cd-unit"><span class="cd-num" id="cd-s">--</span><span class="cd-label">Saniyə</span></div>
+      </div>
+      <svg class="floral-art" style="margin-top:1.4rem" width="72" height="72" viewBox="0 0 72 72" fill="none">
+        <circle cx="36" cy="36" r="30" stroke="#d4b896" stroke-width="0.6"/>
+        <circle cx="36" cy="36" r="26" stroke="#d4b896" stroke-width="0.4" stroke-dasharray="2 3"/>
+        <text x="36" y="33" text-anchor="middle" font-family="Cormorant Garamond,serif"
+              font-size="10" fill="#9a7a52" letter-spacing="2">TEMMUZ</text>
+        <text x="36" y="49" text-anchor="middle" font-family="Cormorant Garamond,serif"
+              font-size="20" fill="#b8966a" font-style="italic">26</text>
+      </svg>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page hidden" data-page="2">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="page-label">Məkan</span>
+      <svg width="22" height="30" viewBox="0 0 22 30" fill="none" style="margin-bottom:0.9rem">
+        <path d="M11 29 C11 29 1 19.5 1 11 A10 10 0 0 1 21 11 C21 19.5 11 29 11 29Z"
+              stroke="#b8966a" stroke-width="0.8" fill="rgba(184,150,106,0.08)"/>
+        <circle cx="11" cy="11" r="3.5" stroke="#b8966a" stroke-width="0.8"/>
+      </svg>
+      <p class="p3-address">Gülensu Mahallesi<br>Ayla Cd. No : 84<br>Maltepe / İstanbul</p>
+      <div class="divider" style="margin-top:1.2rem;margin-bottom:0"><span class="divider-line"></span><span class="divider-diamond"></span><span class="divider-line"></span></div>
+      <a class="map-btn"
+         href="https://www.google.com/maps/search/G%C3%BClensu+Mahallesi+Ayla+Cd+No+84+Maltepe+Istanbul"
+         target="_blank" rel="noopener noreferrer">
+        <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+          <path d="M6 1a3.5 3.5 0 0 1 3.5 3.5C9.5 7.5 6 11 6 11S2.5 7.5 2.5 4.5A3.5 3.5 0 0 1 6 1Z" stroke="currentColor" stroke-width="1"/>
+          <circle cx="6" cy="4.5" r="1.2" stroke="currentColor" stroke-width="1"/>
+        </svg>
+        Xəritədə bax
+      </a>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="page hidden" data-page="3">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="page-label">Son söz</span>
+      <div class="divider" style="margin-top:0"><span class="divider-line"></span><span class="divider-diamond"></span><span class="divider-line"></span></div>
+      <p class="p4-message">Bu gözəl günümüzdə sevincimizi sizinlə bölüşmək bizim üçün böyük xoşbəxtlikdir.</p>
+      <div id="heart-wrap">
+        <svg class="heart-svg" width="58" height="58" viewBox="0 0 60 60" fill="none">
+          <path d="M30 49 C30 49 7 34 7 20 C7 12.5 13 7 20.5 7 C25.5 7 29 10 30 12 C31 10 34.5 7 39.5 7 C47 7 53 12.5 53 20 C53 34 30 49 30 49Z"
+                stroke="#b8966a" stroke-width="1.1" fill="rgba(184,150,106,0.08)" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="divider"><span class="divider-line"></span><span class="divider-diamond"></span><span class="divider-line"></span></div>
+      <p class="p4-names-final">Nisanur &amp; Hamza</p>
+      <p class="p4-date-final">26 · 07 · 2026</p>
+    </div>
+
+    <!-- NAV -->
+    <div id="nav">
+      <button class="nav-btn" id="btn-prev" aria-label="Əvvəlki">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div id="dots">
+        <span class="dot active" data-i="0"></span><span class="dot" data-i="1"></span><span class="dot" data-i="2"></span><span class="dot" data-i="3"></span>
+      </div>
+      <button class="nav-btn" id="btn-next" aria-label="Növbəti">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){var t=document.getElementById('corner-svg');document.querySelectorAll('.corner').forEach(function(c){c.appendChild(t.content.cloneNode(true));});})();
+(function(){var target=new Date('2026-07-26T19:00:00');function tick(){var diff=target-new Date();if(diff<=0){['cd-d','cd-h','cd-m','cd-s'].forEach(function(id){document.getElementById(id).textContent='00';});return;}document.getElementById('cd-d').textContent=String(Math.floor(diff/86400000)).padStart(2,'0');document.getElementById('cd-h').textContent=String(Math.floor(diff%86400000/3600000)).padStart(2,'0');document.getElementById('cd-m').textContent=String(Math.floor(diff%3600000/60000)).padStart(2,'0');document.getElementById('cd-s').textContent=String(Math.floor(diff%60000/1000)).padStart(2,'0');}tick();setInterval(tick,1000);})();
+var canvas=document.getElementById('petal-canvas'),ctx=canvas.getContext('2d'),petals=[],animating=false;
+function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}resizeCanvas();window.addEventListener('resize',resizeCanvas);
+function mkPetal(){return{x:Math.random()*canvas.width,y:-20,size:Math.random()*7+4,vy:Math.random()*0.7+0.3,vx:(Math.random()-0.5)*0.55,rot:Math.random()*Math.PI*2,rs:(Math.random()-0.5)*0.02,op:Math.random()*0.25+0.10,gold:Math.random()>0.45};}
+function drawPetal(p){ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=p.op;ctx.strokeStyle=p.gold?'#b8966a':'#cdc8bc';ctx.lineWidth=0.7;ctx.beginPath();ctx.moveTo(0,-p.size);ctx.bezierCurveTo(p.size*0.7,-p.size*0.4,p.size*0.7,p.size*0.4,0,p.size);ctx.bezierCurveTo(-p.size*0.7,p.size*0.4,-p.size*0.7,-p.size*0.4,0,-p.size);ctx.stroke();ctx.restore();}
+function loopPetals(){if(!animating)return;ctx.clearRect(0,0,canvas.width,canvas.height);if(petals.length<60&&Math.random()<0.16)petals.push(mkPetal());petals.forEach(function(p){p.y+=p.vy;p.x+=p.vx+Math.sin(p.y*0.010)*0.4;p.rot+=p.rs;drawPetal(p);});petals=petals.filter(function(p){return p.y<canvas.height+30;});requestAnimationFrame(loopPetals);}
+function startPetals(){canvas.classList.add('visible');animating=true;loopPetals();}
+var flowerBtn=document.getElementById('flower-btn'),opening=document.getElementById('opening'),invitation=document.getElementById('invitation');
+flowerBtn.addEventListener('click',function burst(){
+  flowerBtn.removeEventListener('click',burst);
+  var r=flowerBtn.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,N=26;
+  for(var i=0;i<N;i++){(function(i){var el=document.createElement('div');el.className='burst-petal';var w=Math.random()*12+7,h=Math.random()*20+12;el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+(cx-w/2)+'px;top:'+(cy-h/2)+'px';var ang=(360/N)*i+(Math.random()-0.5)*22,dist=Math.random()*260+130,dur=Math.random()*500+650,delay=Math.random()*160;document.body.appendChild(el);el.animate([{opacity:0.85,transform:'translate(0,0) rotate(0deg) scale(1)'},{opacity:0.6,transform:'translate('+(Math.cos(ang*Math.PI/180)*dist*0.55)+'px,'+(Math.sin(ang*Math.PI/180)*dist*0.45)+'px) rotate('+(ang*0.9)+'deg) scale(0.85)',offset:0.5},{opacity:0,transform:'translate('+(Math.cos(ang*Math.PI/180)*dist)+'px,'+(Math.sin(ang*Math.PI/180)*dist)+'px) rotate('+(ang*1.5)+'deg) scale(0.2)'}],{duration:dur,delay:delay,easing:'cubic-bezier(0.25,0.46,0.45,0.94)',fill:'forwards'});setTimeout(function(){el.remove();},dur+delay+100);})(i);}
+  document.getElementById('opening-flower').animate([{transform:'scale(1) rotate(0deg)',opacity:1},{transform:'scale(0.04) rotate(600deg)',opacity:0}],{duration:850,delay:150,easing:'cubic-bezier(0.55,0,1,0.45)',fill:'forwards'});
+  setTimeout(function(){opening.classList.add('hide');invitation.classList.add('visible');startPetals();},800);
+});
+var pages=Array.from(document.querySelectorAll('.page')),dots=Array.from(document.querySelectorAll('.dot')),current=0;
+function goTo(idx,dir){if(idx<0||idx>=pages.length||idx===current)return;var leaving=pages[current],entering=pages[idx];entering.classList.remove('hidden','prev','next','active');entering.classList.add(dir===1?'next':'prev');entering.getBoundingClientRect();leaving.classList.replace('active',dir===1?'prev':'next');entering.classList.replace(dir===1?'next':'prev','active');dots[current].classList.remove('active');current=idx;dots[current].classList.add('active');}
+document.getElementById('btn-next').addEventListener('click',function(){goTo(current+1,1);});
+document.getElementById('btn-prev').addEventListener('click',function(){goTo(current-1,-1);});
+dots.forEach(function(d){d.addEventListener('click',function(){var i=+d.dataset.i;goTo(i,i>current?1:-1);});});
+document.addEventListener('keydown',function(e){if(!invitation.classList.contains('visible'))return;if(e.key==='ArrowRight'||e.key==='ArrowDown')goTo(current+1,1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')goTo(current-1,-1);});
+var tx=0,ty=0,vp=document.getElementById('card-viewport');
+vp.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+vp.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40)goTo(current+(dx<0?1:-1),dx<0?1:-1);},{passive:true});
+var hw=document.getElementById('heart-wrap');
+setInterval(function(){if(!pages[3].classList.contains('active'))return;var h=document.createElement('span');h.className='float-heart';h.innerHTML='&#9825;';h.style.left=(Math.random()*50)+'px';h.style.bottom='0';h.style.animationDuration=(Math.random()*1.4+2.2)+'s';h.style.fontSize=(Math.random()*7+6)+'px';hw.appendChild(h);setTimeout(function(){h.remove();},3800);},900);
+</script>
+</body>
+</html>

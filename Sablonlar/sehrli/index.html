@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nigar & Tural — Toy Dəvətnaməsi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink:   #c0907a;
+      --pink-dark: #a87260;
+      --cream:  #f5f0e8;
+      --cream-dark: #ede5d5;
+      --ink:    #2b2218;
+      --gold:   #b89b6e;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      font-family: 'Cormorant Garamond', serif;
+      background: #e8ddd0;
+    }
+
+    /* ── Paper / Fabric Texture Background ───────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+      background-size: 300px 300px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Warm gradient overlay */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse at 50% 40%, #e2d0c0 0%, #cdb99e 60%, #b8a080 100%);
+      opacity: 0.55;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Scene wrapper ────────────────────────────────────────── */
+    #scene {
+      position: fixed; inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    /* ── Petal Canvas ─────────────────────────────────────────── */
+    #petals-canvas {
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    #petals-canvas.visible { opacity: 1; }
+
+    /* ── Card Stage ───────────────────────────────────────────── */
+    #card-stage {
+      position: relative;
+      width: min(340px, 88vw);
+      height: min(520px, 90vh);
+      perspective: 1200px;
+    }
+
+    /* ── Pink Cover Card ──────────────────────────────────────── */
+    #cover-card {
+      position: absolute; inset: 0;
+      background: var(--pink);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 40px 36px;
+      cursor: pointer;
+      z-index: 10;
+      transform-origin: left center;
+      transition: transform 0.85s cubic-bezier(0.77, 0, 0.18, 1),
+                  opacity  0.85s cubic-bezier(0.77, 0, 0.18, 1);
+      box-shadow: 6px 12px 40px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+
+    /* Decorative arc on cover */
+    #cover-card::before {
+      content: '';
+      position: absolute;
+      top: -30px; left: -30px;
+      width: 70%;
+      aspect-ratio: 1;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    #cover-card.open {
+      transform: translateX(-115%) rotateY(-15deg);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .cover-name-top {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 9vw, 3.2rem);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .cover-and {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.4rem, 5vw, 1.8rem);
+      color: rgba(255,255,255,0.82);
+      margin: 6px 0;
+    }
+
+    .cover-name-bottom {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 9vw, 3.2rem);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    /* Hint text */
+    .cover-hint {
+      position: absolute;
+      top: 20px; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      white-space: nowrap;
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.9; }
+    }
+
+    /* ── Cream Invitation Card ────────────────────────────────── */
+    #invite-card {
+      position: absolute; inset: 0;
+      background: var(--cream);
+      border-radius: 50% 50% 4px 4px / 12% 12% 4px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 28px 28px;
+      z-index: 5;
+      opacity: 0;
+      transform: scale(0.92) translateY(18px);
+      transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;
+      box-shadow: 4px 10px 40px rgba(0,0,0,0.18);
+      overflow: hidden;
+    }
+
+    #invite-card.visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    /* Curved "Join us" text at top */
+    .curved-text-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 6px;
+      margin-top: -2px;
+    }
+
+    .curved-text-wrap svg {
+      width: 85%;
+      max-width: 260px;
+      overflow: visible;
+    }
+
+    /* Thin border line on cream card */
+    .card-border-line {
+      position: absolute;
+      top: 14px; left: 14px; right: 14px;
+      bottom: 14px;
+      border: 1px solid rgba(100,80,60,0.18);
+      border-radius: 46% 46% 3px 3px / 10% 10% 3px 3px;
+      pointer-events: none;
+    }
+
+    /* Names on cream card */
+    .invite-first-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 8vw, 2.8rem);
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      line-height: 1;
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    .invite-surname {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.25rem, 4.5vw, 1.7rem);
+      color: var(--ink);
+      opacity: 0.82;
+      text-align: center;
+      line-height: 1.3;
+      margin-top: 2px;
+    }
+
+    .invite-and {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.6;
+      margin: 8px 0;
+    }
+
+    .invite-divider {
+      width: 38px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.6;
+      margin: 9px auto;
+    }
+
+    .invite-detail-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.5;
+      text-align: center;
+      margin-bottom: 2px;
+    }
+
+    .invite-detail-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      opacity: 0.85;
+      text-align: center;
+      line-height: 1.55;
+    }
+
+    /* ── Pages Overlay ────────────────────────────────────────── */
+    #pages-overlay {
+      position: fixed; inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    #pages-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .pages-container {
+      position: relative;
+      width: min(380px, 92vw);
+      height: min(560px, 92vh);
+      overflow: hidden;
+    }
+
+    .page {
+      position: absolute; inset: 0;
+      background: var(--cream);
+      border-radius: 50% 50% 6px 6px / 8% 8% 6px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 54px 36px 36px;
+      box-shadow: 4px 10px 40px rgba(0,0,0,0.2);
+      transform: translateX(100%);
+      overflow: hidden;
+    }
+
+    .page-border {
+      position: absolute;
+      top: 14px; left: 14px; right: 14px; bottom: 14px;
+      border: 1px solid rgba(100,80,60,0.15);
+      border-radius: 44% 44% 4px 4px / 8% 8% 4px 4px;
+      pointer-events: none;
+    }
+
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 6vw, 2.2rem);
+      font-weight: 400;
+      color: var(--ink);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .page-subtitle {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.8rem, 6.5vw, 2.4rem);
+      color: var(--pink-dark);
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .page-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.9rem, 3.2vw, 1.05rem);
+      color: var(--ink);
+      opacity: 0.8;
+      text-align: center;
+      line-height: 1.85;
+      letter-spacing: 0.04em;
+    }
+
+    .page-gold-line {
+      width: 48px; height: 1px;
+      background: var(--gold);
+      opacity: 0.55;
+      margin: 14px auto;
+    }
+
+    /* Countdown */
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .cd-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cd-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 6vw, 2.4rem);
+      color: var(--pink-dark);
+      line-height: 1;
+    }
+
+    .cd-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.55;
+      margin-top: 4px;
+    }
+
+    /* Map button */
+    .map-btn {
+      display: inline-block;
+      margin-top: 22px;
+      padding: 11px 28px;
+      border: 1px solid var(--gold);
+      background: transparent;
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .map-btn:hover {
+      background: var(--pink);
+      color: #fff;
+      border-color: var(--pink);
+    }
+
+    /* Final page animated heart */
+    .final-heart {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      margin-bottom: 14px;
+      position: relative;
+      width: 100px;
+    }
+
+    .final-heart svg {
+      width: 68px;
+      height: 62px;
+      overflow: visible;
+      animation: heartbeat 1.4s ease-in-out infinite;
+      filter: drop-shadow(0 4px 14px rgba(168, 114, 96, 0.45));
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14%       { transform: scale(1.18); }
+      28%       { transform: scale(1); }
+      42%       { transform: scale(1.1); }
+      56%       { transform: scale(1); }
+    }
+
+    /* Particle hearts floating around */
+    .heart-particle {
+      position: absolute;
+      font-size: 0.85rem;
+      opacity: 0;
+      animation: floatUp 2.8s ease-in infinite;
+      pointer-events: none;
+      color: var(--pink);
+    }
+
+    @keyframes floatUp {
+      0%   { opacity: 0;   transform: translateY(0)    scale(0.6); }
+      20%  { opacity: 0.8; }
+      80%  { opacity: 0.4; }
+      100% { opacity: 0;   transform: translateY(-80px) scale(1.1); }
+    }
+
+    /* ── Navigation Buttons ───────────────────────────────────── */
+    .nav-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 30;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(180,150,110,0.35);
+      border-radius: 50%;
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--ink);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease, background 0.2s;
+      backdrop-filter: blur(6px);
+    }
+
+    .nav-btn:hover { background: rgba(255,255,255,0.82); }
+
+    .nav-btn.show { opacity: 1; pointer-events: all; }
+
+    #btn-prev { left: clamp(8px, 3vw, 24px); }
+    #btn-next { right: clamp(8px, 3vw, 24px); }
+
+    /* Page dots */
+    #page-dots {
+      position: fixed;
+      bottom: clamp(18px, 5vh, 32px);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 30;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    #page-dots.show { opacity: 1; }
+
+    .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(180,140,100,0.4);
+      transition: background 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background: var(--pink-dark);
+      transform: scale(1.3);
+    }
+
+    /* ── Map iframe ─────────────────────────────────────────────── */
+    .map-iframe {
+      width: 100%;
+      height: 145px;
+      border: none;
+      border-radius: 4px;
+      margin-top: 10px;
+      opacity: 0.92;
+      flex-shrink: 0;
+    }
+
+    #page-2 {
+      justify-content: flex-start;
+      padding-top: 38px;
+      overflow-y: auto;
+    }
+
+    /* ── Responsive tweaks ────────────────────────────────────── */
+    @media (max-width: 400px) {
+      #cover-card { padding: 30px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Petal animation canvas -->
+<canvas id="petals-canvas"></canvas>
+
+<!-- Opening card stage -->
+<div id="scene">
+  <div id="card-stage">
+
+    <!-- Cream invitation (behind pink) -->
+    <div id="invite-card">
+      <div class="card-border-line"></div>
+
+      <!-- Curved SVG text at the top -->
+      <div class="curved-text-wrap">
+        <svg viewBox="0 0 220 70" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <path id="arc-path" d="M 10,65 A 100,100 0 0,1 210,65" />
+          </defs>
+          <text font-family="'Cormorant Garamond', serif" font-size="11.5"
+                fill="#2b2218" opacity="0.62" letter-spacing="2">
+            <textPath href="#arc-path" startOffset="50%" text-anchor="middle">
+              toyumuza dəvət edirik
+            </textPath>
+          </text>
+        </svg>
+      </div>
+
+      <div class="invite-first-name">Nigar</div>
+      <div class="invite-surname">Əliyeva</div>
+      <div class="invite-and">və</div>
+      <div class="invite-first-name">Tural</div>
+      <div class="invite-surname">Məmmədov</div>
+
+      <div class="invite-divider"></div>
+
+      <div class="invite-detail-label">Tarix</div>
+      <div class="invite-detail-value">
+        17 Avqust 2025<br/>
+        günortadan sonra saat dörddə
+      </div>
+
+      <div class="invite-divider"></div>
+
+      <div class="invite-detail-label">Məkan</div>
+      <div class="invite-detail-value">
+        The Magnolia<br/>
+        1120 Eagle Pointe Way<br/>
+        Pigeon Forge, TN
+      </div>
+    </div>
+
+    <!-- Pink cover card (on top) -->
+    <div id="cover-card" onclick="openInvitation()">
+      <span class="cover-hint">açmaq üçün toxun</span>
+      <div class="cover-name-top">Nigar</div>
+      <div class="cover-and">və</div>
+      <div class="cover-name-bottom">Tural</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Multi-page overlay (shown after invitation opens) -->
+<div id="pages-overlay">
+  <div class="pages-container" id="pages-container">
+
+    <!-- Səhifə 1: Dəvət Mesajı -->
+    <div class="page" id="page-0">
+      <div class="page-border"></div>
+      <div class="page-subtitle">Ailələrinin sevinci ilə</div>
+      <div class="page-gold-line"></div>
+      <div class="page-body">
+        Nigar Əliyeva<br/>və<br/>Tural Məmmədov<br/><br/>
+        sizi onların nişan mərasiminə<br/>sevinclə dəvət edirlər
+      </div>
+      <div class="page-gold-line"></div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:0.68rem;
+                  letter-spacing:0.22em;text-transform:uppercase;
+                  color:var(--ink);opacity:0.45;text-align:center;">
+        Keçmək üçün oxlardan istifadə edin
+      </div>
+    </div>
+
+    <!-- Səhifə 2: Tarix -->
+    <div class="page" id="page-1">
+      <div class="page-border"></div>
+      <div class="page-title">Tarixi Yadda Saxla</div>
+      <div class="page-gold-line"></div>
+      <div class="page-body">
+        17 Avqust 2025<br/>
+        <span style="font-size:0.8em;opacity:0.65;">Günortadan sonra saat dörddə</span>
+      </div>
+      <div class="countdown-grid" id="countdown">
+        <div class="cd-cell"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Gün</span></div>
+        <div class="cd-cell"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Saat</span></div>
+        <div class="cd-cell"><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Dəq</span></div>
+        <div class="cd-cell"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">San</span></div>
+      </div>
+    </div>
+
+    <!-- Səhifə 3: Məkan -->
+    <div class="page" id="page-2">
+      <div class="page-border"></div>
+      <div class="page-title">Məkan</div>
+      <div class="page-subtitle" style="font-size:clamp(1.3rem,4.5vw,1.7rem);margin-bottom:6px;">The Magnolia</div>
+      <div class="page-gold-line" style="margin:8px auto;"></div>
+      <div class="page-body" style="font-size:0.88rem;">
+        1120 Eagle Pointe Way<br/>
+        Pigeon Forge, Tennessee<br/>
+        Mərasim bitdikdən sonra qəbul keçiriləcək
+      </div>
+      <iframe
+        class="map-iframe"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=1120+Eagle+Pointe+Way+Pigeon+Forge+TN&output=embed">
+      </iframe>
+      <a class="map-btn" style="margin-top:10px;"
+         href="https://maps.google.com/?q=1120+Eagle+Pointe+Way+Pigeon+Forge+TN"
+         target="_blank" rel="noopener noreferrer">
+        Xəritədə Göstər
+      </a>
+    </div>
+
+    <!-- Səhifə 4: Son Sözlər -->
+    <div class="page" id="page-3">
+      <div class="page-border"></div>
+      <!-- Animated heart -->
+      <div class="final-heart" id="final-heart-wrap">
+        <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="hg" cx="50%" cy="35%" r="60%">
+              <stop offset="0%"  stop-color="#e8a898"/>
+              <stop offset="60%" stop-color="#c0907a"/>
+              <stop offset="100%" stop-color="#8c5040"/>
+            </radialGradient>
+          </defs>
+          <path d="M50 85 C50 85 8 55 8 30 A22 22 0 0 1 50 18 A22 22 0 0 1 92 30 C92 55 50 85 50 85Z"
+                fill="url(#hg)" />
+          <!-- inner shine -->
+          <ellipse cx="36" cy="34" rx="9" ry="5" fill="rgba(255,255,255,0.22)" transform="rotate(-20 36 34)"/>
+        </svg>
+        <!-- floating mini hearts -->
+        <span class="heart-particle" style="left:18%;animation-delay:0s;">♥</span>
+        <span class="heart-particle" style="left:50%;animation-delay:0.9s;">♡</span>
+        <span class="heart-particle" style="left:78%;animation-delay:1.7s;">♥</span>
+      </div>
+      <div class="page-title">Səbirsizliklə Gözləyirik</div>
+      <div class="page-subtitle" style="font-size:clamp(1.4rem,5vw,1.9rem);">sizinlə birlikdə</div>
+      <div class="page-gold-line"></div>
+      <div class="page-body">
+        İştirakınız bizim üçün<br/>ən qiymətli hədiyyədir.<br/><br/>
+        15 İyul 2025-ə qədər cavab verin<br/>
+        <span style="opacity:0.6;font-size:0.9em;">devetlim.az@gmail.com</span>
+      </div>
+      <div class="page-gold-line"></div>
+      <div class="page-body" style="font-size:0.82rem;opacity:0.55;">
+        Nigar &amp; Tural — Avqust 2025 ♥
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Navigation buttons -->
+<button class="nav-btn" id="btn-prev" onclick="navigate(-1)">&#8592;</button>
+<button class="nav-btn" id="btn-next" onclick="navigate(1)">&#8594;</button>
+
+<!-- Page indicator dots -->
+<div id="page-dots">
+  <div class="dot active" onclick="goTo(0)"></div>
+  <div class="dot" onclick="goTo(1)"></div>
+  <div class="dot" onclick="goTo(2)"></div>
+  <div class="dot" onclick="goTo(3)"></div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════
+   INVITATION OPEN
+════════════════════════════════════════════════════ */
+let invitationOpened = false;
+
+function openInvitation() {
+  if (invitationOpened) return;
+  invitationOpened = true;
+
+  const cover  = document.getElementById('cover-card');
+  const invite = document.getElementById('invite-card');
+
+  // Show cream card
+  invite.classList.add('visible');
+
+  // Slide pink card away after a brief pause
+  setTimeout(() => {
+    cover.classList.add('open');
+  }, 120);
+
+  // After animation completes, show pages overlay
+  setTimeout(() => {
+    // Hide the stage entirely and show pages overlay
+    document.getElementById('scene').style.opacity = '0';
+    document.getElementById('scene').style.pointerEvents = 'none';
+    document.getElementById('scene').style.transition = 'opacity 0.5s ease';
+
+    const overlay = document.getElementById('pages-overlay');
+    overlay.classList.add('active');
+
+    // Position all pages: page-0 visible, rest off-screen right
+    const allPages = document.querySelectorAll('.page');
+    allPages.forEach((p, i) => {
+      p.style.transition = 'none';
+      p.style.transform  = i === 0 ? 'translateX(0)' : 'translateX(100%)';
+    });
+    currentPage = 0;
+
+    // Show nav controls
+    document.getElementById('btn-next').classList.add('show');
+    document.getElementById('page-dots').classList.add('show');
+
+    // Prevent ghost click/swipe immediately after opening.
+    navReady = false;
+    setTimeout(() => {
+      navReady = true;
+    }, 450);
+
+    // Start petals
+    startPetals();
+  }, 1350);
+}
+
+/* ════════════════════════════════════════════════════
+   PAGE NAVIGATION
+════════════════════════════════════════════════════ */
+const TOTAL_PAGES = 4;
+let currentPage = 0;
+
+let isAnimating = false;
+let navReady = false;
+
+function goTo(idx) {
+  if (!navReady || idx < 0 || idx >= TOTAL_PAGES || idx === currentPage || isAnimating) return;
+
+  const pages = document.querySelectorAll('.page');
+  const dots  = document.querySelectorAll('.dot');
+  const dir   = idx > currentPage ? 1 : -1;
+  const EASE  = 'transform 0.65s cubic-bezier(0.77, 0, 0.18, 1)';
+
+  const outgoing = pages[currentPage];
+  const incoming = pages[idx];
+
+  // Instantly position incoming off-screen (no transition)
+  incoming.style.transition = 'none';
+  incoming.style.transform  = dir === 1 ? 'translateX(100%)' : 'translateX(-100%)';
+
+  // Force reflow so the instant position is applied before we animate
+  incoming.getBoundingClientRect();
+
+  isAnimating = true;
+
+  // Animate both pages simultaneously
+  outgoing.style.transition = EASE;
+  outgoing.style.transform  = dir === 1 ? 'translateX(-100%)' : 'translateX(100%)';
+
+  incoming.style.transition = EASE;
+  incoming.style.transform  = 'translateX(0)';
+
+  // Update dots & buttons immediately
+  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  currentPage = idx;
+  document.getElementById('btn-prev').classList.toggle('show', currentPage > 0);
+  document.getElementById('btn-next').classList.toggle('show', currentPage < TOTAL_PAGES - 1);
+
+  // After animation, allow next navigation
+  setTimeout(() => { isAnimating = false; }, 680);
+}
+
+function navigate(dir) {
+  goTo(currentPage + dir);
+}
+
+/* Keyboard navigation */
+document.addEventListener('keydown', (e) => {
+  if (!document.getElementById('pages-overlay').classList.contains('active')) return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  navigate(1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    navigate(-1);
+});
+
+/* Touch / swipe navigation */
+let touchStartX = 0;
+let touchStartY = 0;
+
+const pagesOverlay = document.getElementById('pages-overlay');
+
+pagesOverlay.addEventListener('touchstart', (e) => {
+  if (!pagesOverlay.classList.contains('active')) return;
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+pagesOverlay.addEventListener('touchend', (e) => {
+  if (!pagesOverlay.classList.contains('active') || !navReady) return;
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+    navigate(dx < 0 ? 1 : -1);
+  }
+}, { passive: true });
+
+/* ════════════════════════════════════════════════════
+   COUNTDOWN TIMER
+════════════════════════════════════════════════════ */
+const WEDDING_DATE = new Date('2025-08-17T16:00:00');
+
+function updateCountdown() {
+  const now  = new Date();
+  const diff = WEDDING_DATE - now;
+
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent  = '00';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent  = '00';
+    document.getElementById('cd-secs').textContent  = '00';
+    return;
+  }
+
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins  = Math.floor((diff % 3600000)  / 60000);
+  const secs  = Math.floor((diff % 60000)    / 1000);
+
+  document.getElementById('cd-days').textContent  = String(days).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+  document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
+  document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* ════════════════════════════════════════════════════
+   FLOATING PETALS
+════════════════════════════════════════════════════ */
+const canvas = document.getElementById('petals-canvas');
+const ctx    = canvas.getContext('2d');
+
+let petals = [];
+let animId = null;
+
+const PETAL_COLORS = [
+  'rgba(210,160,140,0.75)',
+  'rgba(230,200,185,0.65)',
+  'rgba(245,220,210,0.70)',
+  'rgba(200,140,120,0.55)',
+  'rgba(255,235,225,0.60)',
+];
+
+function resizeCanvas() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function createPetal() {
+  const size = 7 + Math.random() * 11;
+  return {
+    x:     Math.random() * canvas.width,
+    y:     -size * 2,
+    size,
+    color: PETAL_COLORS[Math.floor(Math.random() * PETAL_COLORS.length)],
+    vx:    (Math.random() - 0.5) * 0.9,
+    vy:    0.55 + Math.random() * 0.85,
+    angle: Math.random() * Math.PI * 2,
+    spin:  (Math.random() - 0.5) * 0.04,
+    wobble: Math.random() * Math.PI * 2,
+    wobbleSpeed: 0.015 + Math.random() * 0.02,
+  };
+}
+
+function drawPetal(p) {
+  ctx.save();
+  ctx.translate(p.x, p.y);
+  ctx.rotate(p.angle);
+  ctx.fillStyle = p.color;
+  ctx.beginPath();
+  // Leaf-like petal shape
+  ctx.moveTo(0, -p.size);
+  ctx.bezierCurveTo( p.size * 0.9, -p.size * 0.6,  p.size * 0.9,  p.size * 0.6,  0,  p.size * 0.4);
+  ctx.bezierCurveTo(-p.size * 0.9,  p.size * 0.6, -p.size * 0.9, -p.size * 0.6,  0, -p.size);
+  ctx.fill();
+  ctx.restore();
+}
+
+function animatePetals() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Spawn new petals gradually
+  if (petals.length < 55 && Math.random() < 0.35) {
+    petals.push(createPetal());
+  }
+
+  petals = petals.filter(p => p.y < canvas.height + 30);
+
+  for (const p of petals) {
+    p.wobble += p.wobbleSpeed;
+    p.x     += p.vx + Math.sin(p.wobble) * 0.5;
+    p.y     += p.vy;
+    p.angle += p.spin;
+    drawPetal(p);
+  }
+
+  animId = requestAnimationFrame(animatePetals);
+}
+
+function startPetals() {
+  resizeCanvas();
+  canvas.classList.add('visible');
+  if (!animId) animatePetals();
+}
+
+window.addEventListener('resize', () => {
+  resizeCanvas();
+});
+</script>
+</body>
+</html>

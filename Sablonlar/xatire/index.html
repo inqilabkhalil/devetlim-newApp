@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toy Dəvətnaməsi – Əli & Aytən</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;1,400&family=Great+Vibes&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- ===== INTRO: ENVELOPE SCENE ===== -->
+  <div class="scene" id="scene-envelope">
+    <div class="scene-bg"></div>
+
+    <div class="envelope-wrapper" id="envelopeWrapper">
+      <div class="envelope" id="envelope">
+
+        <!-- Envelope back -->
+        <div class="env-back"></div>
+
+        <!-- Envelope flap (top) -->
+        <div class="env-flap" id="envFlap"></div>
+
+        <!-- Envelope body -->
+        <div class="env-body">
+          <div class="env-seal" id="envSeal">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <path d="M30 10 C20 10 12 18 12 28 C12 42 30 52 30 52 C30 52 48 42 48 28 C48 18 40 10 30 10Z" fill="none" stroke="#C9A84C" stroke-width="1.5"/>
+              <text x="30" y="34" text-anchor="middle" font-family="Great Vibes" font-size="16" fill="#C9A84C">A&amp;A</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Card that slides out -->
+        <div class="env-card" id="envCard">
+          <div class="env-card-inner">
+            <p class="env-card-teaser">Sizi toy mərasimimizdə görmək arzusundayıq</p>
+            <div class="env-card-monogram">A & A</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Click hint -->
+      <div class="click-hint" id="clickHint">
+        <span>Zərfi açmaq üçün toxunun</span>
+        <div class="hint-arrow">↓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN INVITATION CARDS ===== -->
+  <div class="invitation-stage" id="invitationStage" style="display:none;">
+
+    <!-- Decorative drifting petals -->
+    <div class="petals" id="petals"></div>
+
+    <!-- Card container -->
+    <div class="card-container" id="cardContainer">
+
+      <!-- ── CARD 1: Couple ── -->
+      <div class="card active" id="card-1" data-index="0">
+        <div class="card-inner">
+          <div class="card-ornament top">
+            <svg viewBox="0 0 200 30" xmlns="http://www.w3.org/2000/svg"><path d="M0 15 Q50 5 100 15 Q150 25 200 15" fill="none" stroke="#C9A84C" stroke-width="1"/><circle cx="100" cy="15" r="4" fill="#C9A84C"/></svg>
+          </div>
+
+          <p class="card-label">Toy Dəvətnaməsi</p>
+
+          <div class="couple-names">
+            <div class="name-block groom">
+              <span class="name-title">Bəy</span>
+              <h1 class="name">Əli</h1>
+              <span class="name-sub">Həsənov</span>
+            </div>
+            <div class="and-symbol">&amp;</div>
+            <div class="name-block bride">
+              <span class="name-title">Gəlin</span>
+              <h1 class="name">Aytən</h1>
+              <span class="name-sub">Məmmədova</span>
+            </div>
+          </div>
+
+          <div class="card-ornament bottom">
+            <svg viewBox="0 0 200 30" xmlns="http://www.w3.org/2000/svg"><path d="M0 15 Q50 25 100 15 Q150 5 200 15" fill="none" stroke="#C9A84C" stroke-width="1"/><circle cx="100" cy="15" r="4" fill="#C9A84C"/></svg>
+          </div>
+
+          <p class="card-tagline">Birlikdə keçiriləcək xoşbəxt günümüzü sizinlə bölüşmək istəyirik</p>
+        </div>
+      </div>
+
+      <!-- ── CARD 2: Invitation message ── -->
+      <div class="card" id="card-2" data-index="1">
+        <div class="card-inner">
+          <div class="card-ornament top">
+            <svg viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20 L85 20" stroke="#C9A84C" stroke-width="1" fill="none"/>
+              <path d="M115 20 L190 20" stroke="#C9A84C" stroke-width="1" fill="none"/>
+              <path d="M95 10 C90 10 85 15 90 20 C85 25 90 30 95 30 C100 30 105 25 100 20 C105 15 100 10 95 10Z" fill="#C9A84C" opacity="0.8"/>
+              <path d="M105 10 C110 10 115 15 110 20 C115 25 110 30 105 30 C100 30 95 25 100 20 C95 15 100 10 105 10Z" fill="#C9A84C" opacity="0.8"/>
+            </svg>
+          </div>
+
+          <h2 class="section-title">Əziz Qonaqlarımız</h2>
+
+          <div class="invitation-text">
+            <p>Həyatımızın ən gözəl səhifəsini birlikdə yazmağa hazırlaşırıq.</p>
+            <p>Sevincimizi, sevincinizi, xoşbəxtliyimizi sizinlə bölüşmək üçün sizi toy mərasimimizdə görmək arzusundayıq.</p>
+            <p>Varlığınız bizə şərəf verər.</p>
+          </div>
+
+          <div class="flourish">
+            <svg viewBox="0 0 120 20" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 10 Q15 0 30 10 Q45 20 60 10 Q75 0 90 10 Q105 20 120 10" fill="none" stroke="#C9A84C" stroke-width="1" opacity="0.6"/>
+            </svg>
+          </div>
+
+          <p class="invitation-footer">— Əli &amp; Aytən —</p>
+        </div>
+      </div>
+
+      <!-- ── CARD 3: Date & Countdown ── -->
+      <div class="card" id="card-3" data-index="2">
+        <div class="card-inner">
+          <div class="card-ornament top">
+            <svg viewBox="0 0 200 30" xmlns="http://www.w3.org/2000/svg"><path d="M0 15 Q50 5 100 15 Q150 25 200 15" fill="none" stroke="#C9A84C" stroke-width="1"/><circle cx="100" cy="15" r="4" fill="#C9A84C"/></svg>
+          </div>
+
+          <h2 class="section-title">Tarix &amp; Vaxt</h2>
+
+          <div class="date-display">
+            <div class="date-part">
+              <span class="date-num">14</span>
+              <span class="date-label">Iyun</span>
+            </div>
+            <div class="date-sep">·</div>
+            <div class="date-part">
+              <span class="date-num">2026</span>
+              <span class="date-label">il</span>
+            </div>
+            <div class="date-sep">·</div>
+            <div class="date-part">
+              <span class="date-num">18:00</span>
+              <span class="date-label">axşam</span>
+            </div>
+          </div>
+
+          <div class="countdown-label">Geri sayım</div>
+          <div class="countdown" id="countdown">
+            <div class="cd-unit">
+              <span class="cd-num" id="cd-days">00</span>
+              <span class="cd-lbl">Gün</span>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+              <span class="cd-num" id="cd-hours">00</span>
+              <span class="cd-lbl">Saat</span>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+              <span class="cd-num" id="cd-mins">00</span>
+              <span class="cd-lbl">Dəqiqə</span>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+              <span class="cd-num" id="cd-secs">00</span>
+              <span class="cd-lbl">Saniyə</span>
+            </div>
+          </div>
+
+          <div class="card-ornament bottom">
+            <svg viewBox="0 0 200 30" xmlns="http://www.w3.org/2000/svg"><path d="M0 15 Q50 25 100 15 Q150 5 200 15" fill="none" stroke="#C9A84C" stroke-width="1"/><circle cx="100" cy="15" r="4" fill="#C9A84C"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CARD 4: Venue ── -->
+      <div class="card" id="card-4" data-index="3">
+        <div class="card-inner">
+          <div class="card-ornament top">
+            <svg viewBox="0 0 200 30" xmlns="http://www.w3.org/2000/svg"><path d="M0 15 Q50 5 100 15 Q150 25 200 15" fill="none" stroke="#C9A84C" stroke-width="1"/><circle cx="100" cy="15" r="4" fill="#C9A84C"/></svg>
+          </div>
+
+          <h2 class="section-title">Məkan</h2>
+
+          <div class="venue-name">Qızıl Saray Banket Zalı</div>
+          <div class="venue-address">
+            <svg class="icon-pin" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#C9A84C"/></svg>
+            Nizami küçəsi 84, Bakı, Azərbaycan
+          </div>
+
+          <div class="map-frame">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.6!2d49.8671!3d40.4093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d6bd0ad4e51%3A0x28a9adfa50edf2a1!2sNizami+St%2C+Baku!5e0!3m2!1saz!2saz!4v1700000000000"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Toy məkanı xəritəsi">
+            </iframe>
+          </div>
+
+          <a class="map-btn" href="https://www.google.com/maps/search/Nizami+küçəsi+84,+Bakı" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/></svg>
+            Xəritədə Aç
+          </a>
+        </div>
+      </div>
+
+      <!-- ── CARD 5: Final ── -->
+      <div class="card" id="card-5" data-index="4">
+        <div class="card-inner final-card">
+          <div class="final-flourish">
+            <svg viewBox="0 0 160 60" xmlns="http://www.w3.org/2000/svg">
+              <path d="M80 5 C60 5 45 20 45 35 C45 50 60 57 80 57 C100 57 115 50 115 35 C115 20 100 5 80 5Z" fill="none" stroke="#C9A84C" stroke-width="1" opacity="0.4"/>
+              <path d="M80 15 C70 15 63 22 63 32 C63 42 70 47 80 47 C90 47 97 42 97 32 C97 22 90 15 80 15Z" fill="none" stroke="#C9A84C" stroke-width="1" opacity="0.3"/>
+              <text x="80" y="38" text-anchor="middle" font-family="Great Vibes" font-size="22" fill="#C9A84C">A &amp; A</text>
+            </svg>
+          </div>
+
+          <blockquote class="final-quote">
+            "Sevgi — iki canın bir-birini tapdığı, iki ürəyin bir döyüşdə birləşdiyi əbədi andır."
+          </blockquote>
+
+          <div class="flourish center">
+            <svg viewBox="0 0 120 20" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 10 Q15 0 30 10 Q45 20 60 10 Q75 0 90 10 Q105 20 120 10" fill="none" stroke="#C9A84C" stroke-width="1" opacity="0.6"/>
+            </svg>
+          </div>
+
+          <p class="final-message">Sizi səbirsizliklə gözləyirik</p>
+          <p class="final-date">14 İyun 2026</p>
+
+          <div class="hearts-animation" id="heartsAnim"></div>
+        </div>
+      </div>
+
+    </div><!-- /card-container -->
+
+    <!-- Navigation -->
+    <div class="nav-controls" id="navControls">
+      <button class="nav-btn" id="prevBtn" aria-label="Əvvəlki">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/></svg>
+      </button>
+
+      <div class="nav-dots" id="navDots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+        <span class="dot" data-index="3"></span>
+        <span class="dot" data-index="4"></span>
+      </div>
+
+      <button class="nav-btn" id="nextBtn" aria-label="Növbəti">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <!-- Swipe hint for mobile -->
+    <div class="swipe-hint" id="swipeHint">← Sürüşdürün →</div>
+
+  </div><!-- /invitation-stage -->
+
+  <script src="script.js"></script>
+</body>
+</html>

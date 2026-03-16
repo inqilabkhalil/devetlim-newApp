@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1131" viewBox="0 0 800 1131">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eaf2fe"/>
+      <stop offset="100%" stop-color="#dce9fc"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f7fbff"/>
+    </linearGradient>
+    <linearGradient id="tape" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#bdd5f2"/>
+      <stop offset="50%" stop-color="#d8e7fa"/>
+      <stop offset="100%" stop-color="#bdd5f2"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1131" fill="url(#sky)"/>
+  <ellipse cx="170" cy="160" rx="140" ry="95" fill="#bfd6f4" opacity="0.45"/>
+  <ellipse cx="650" cy="930" rx="170" ry="120" fill="#c7dcf7" opacity="0.5"/>
+
+  <rect x="146" y="120" width="508" height="890" rx="10" fill="url(#paper)" stroke="#afc8eb" stroke-width="2"/>
+  <rect x="162" y="136" width="476" height="858" rx="6" fill="none" stroke="#c9dcf4" stroke-width="1.4"/>
+  <rect x="347" y="106" width="106" height="20" rx="10" fill="url(#tape)"/>
+
+  <text x="400" y="236" text-anchor="middle" fill="#4a76b8" font-family="Cormorant Garamond, Georgia, serif" font-size="25" letter-spacing="5">TOY DƏVƏTNAMƏSİ</text>
+  <text x="400" y="330" text-anchor="middle" fill="#5e7fb3" font-family="Manrope, Arial, sans-serif" font-size="16" letter-spacing="5">MAVİ ZƏRİFLİK</text>
+
+  <text x="400" y="470" text-anchor="middle" fill="#2f5d9f" font-family="Great Vibes, cursive" font-size="93">Nərmin</text>
+  <text x="400" y="550" text-anchor="middle" fill="#9bbbe4" font-family="Cormorant Garamond, Georgia, serif" font-size="52">&amp;</text>
+  <text x="400" y="646" text-anchor="middle" fill="#2f5d9f" font-family="Great Vibes, cursive" font-size="93">Kamran</text>
+
+  <line x1="280" y1="712" x2="520" y2="712" stroke="#9abbe4" stroke-width="1.5"/>
+  <text x="400" y="770" text-anchor="middle" fill="#3e6399" font-family="Cormorant Garamond, Georgia, serif" font-size="36" letter-spacing="3">21 • 09 • 2026</text>
+  <text x="400" y="830" text-anchor="middle" fill="#6d88af" font-family="Manrope, Arial, sans-serif" font-size="24">White Palace, Bakı</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1131" viewBox="0 0 800 1131">
+  <defs>
+    <linearGradient id="rose" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fceff9"/>
+      <stop offset="100%" stop-color="#f7e7f3"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#fffafd"/>
+    </linearGradient>
+    <linearGradient id="tape" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e8c9df"/>
+      <stop offset="50%" stop-color="#f1ddef"/>
+      <stop offset="100%" stop-color="#e8c9df"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1131" fill="url(#rose)"/>
+  <ellipse cx="160" cy="170" rx="150" ry="105" fill="#efcfe7" opacity="0.45"/>
+  <ellipse cx="645" cy="925" rx="175" ry="125" fill="#ecc8df" opacity="0.5"/>
+
+  <rect x="146" y="120" width="508" height="890" rx="10" fill="url(#paper)" stroke="#ddb4d3" stroke-width="2"/>
+  <rect x="162" y="136" width="476" height="858" rx="6" fill="none" stroke="#ebcde4" stroke-width="1.4"/>
+  <rect x="347" y="106" width="106" height="20" rx="10" fill="url(#tape)"/>
+
+  <text x="400" y="236" text-anchor="middle" fill="#9f4f82" font-family="Playfair Display, Georgia, serif" font-size="25" letter-spacing="5">NİŞAN DƏVƏTNAMƏSİ</text>
+  <text x="400" y="330" text-anchor="middle" fill="#ad6a95" font-family="Nunito Sans, Arial, sans-serif" font-size="16" letter-spacing="5">NİŞAN AHƏNGİ</text>
+
+  <text x="400" y="470" text-anchor="middle" fill="#a14c83" font-family="Allura, cursive" font-size="96">Ləman</text>
+  <text x="400" y="550" text-anchor="middle" fill="#d8a9cb" font-family="Playfair Display, Georgia, serif" font-size="52">&amp;</text>
+  <text x="400" y="646" text-anchor="middle" fill="#a14c83" font-family="Allura, cursive" font-size="96">Elvin</text>
+
+  <line x1="280" y1="712" x2="520" y2="712" stroke="#d4a5c6" stroke-width="1.5"/>
+  <text x="400" y="770" text-anchor="middle" fill="#8d4a74" font-family="Playfair Display, Georgia, serif" font-size="36" letter-spacing="3">14 • 08 • 2026</text>
+  <text x="400" y="830" text-anchor="middle" fill="#ad7298" font-family="Nunito Sans, Arial, sans-serif" font-size="24">Riviera Garden, Bakı</text>
+</svg>

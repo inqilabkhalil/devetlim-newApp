@@ -1,0 +1,884 @@
+/* ============================================================
+   WEDDING INVITATION — style.css
+   Palette: cream, ivory, beige, soft gold, warm brown, deep red
+   ============================================================ */
+
+/* ---------- CSS CUSTOM PROPERTIES ---------- */
+:root {
+  --cream:       #f8f3e9;
+  --ivory:       #fdf8ef;
+  --parchment:   #ede0c8;
+  --gold:        #b8962e;
+  --gold-light:  #d4af5a;
+  --gold-dark:   #7a5c14;
+  --brown:       #5c3d1e;
+  --brown-light: #8b6040;
+  --curtain-red: #7a1825;
+  --curtain-dark:#3e0a10;
+  --curtain-mid: #8b1e2d;
+  --shadow-soft: 0 8px 40px rgba(92,61,30,0.18);
+  --shadow-card: 0 20px 70px rgba(92,61,30,0.22), 0 2px 8px rgba(184,150,46,0.12);
+  --radius:      2px;
+  --font-serif:  'Cormorant Garamond', Georgia, serif;
+  --font-display:'Cinzel', Georgia, serif;
+  --font-body:   'Lato', sans-serif;
+  --transition:  0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- RESET & BASE ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-serif);
+  background: var(--cream);
+  color: var(--brown);
+  min-height: 100dvh;
+  overflow: hidden;          /* controlled per-state by JS */
+}
+
+/* ============================================================
+   CURTAIN INTRO
+   ============================================================ */
+#curtain-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  overflow: hidden;
+  pointer-events: all;
+}
+
+/* Left curtain panel */
+.curtain {
+  position: absolute;
+  top: 0;
+  width: 51%;             /* slightly over 50% so seam is hidden */
+  height: 100%;
+  will-change: transform;
+  /* Fade in on page load */
+  animation: curtainFadeIn 0.6s ease-out both;
+  /* Opening slide */
+  transition: transform 1s ease-in-out;
+  overflow: hidden;
+}
+
+@keyframes curtainFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.curtain-left  { left: 0; }
+.curtain-right { right: 0; }
+
+/* Rich wine-red velvet gradient with subtle fabric folds */
+.curtain-left {
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(0,0,0,0.22) 0px, rgba(0,0,0,0) 14px,
+      rgba(255,255,255,0.03) 28px, rgba(0,0,0,0.15) 42px
+    ),
+    linear-gradient(
+      175deg,
+      var(--curtain-dark) 0%,
+      var(--curtain-mid)  30%,
+      var(--curtain-red)  55%,
+      var(--curtain-dark) 100%
+    );
+  box-shadow: inset -14px 0 35px rgba(0,0,0,0.55), 8px 0 28px rgba(0,0,0,0.5);
+}
+
+.curtain-right {
+  background:
+    repeating-linear-gradient(
+      to left,
+      rgba(0,0,0,0.22) 0px, rgba(0,0,0,0) 14px,
+      rgba(255,255,255,0.03) 28px, rgba(0,0,0,0.15) 42px
+    ),
+    linear-gradient(
+      -175deg,
+      var(--curtain-dark) 0%,
+      var(--curtain-mid)  30%,
+      var(--curtain-red)  55%,
+      var(--curtain-dark) 100%
+    );
+  box-shadow: inset 14px 0 35px rgba(0,0,0,0.55), -8px 0 28px rgba(0,0,0,0.5);
+}
+
+/* Vertical light-catch shine stripe */
+.curtain-shine {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 40px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
+  pointer-events: none;
+}
+.curtain-left  .curtain-shine { left: 35%; }
+.curtain-right .curtain-shine { right: 35%; }
+
+/* Curtain top valance bar */
+#curtain-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 30px;
+  background: linear-gradient(to bottom, #3d0000, var(--curtain-dark));
+  z-index: 10000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+
+/* Gold curtain rod */
+#curtain-container::after {
+  content: '';
+  position: absolute;
+  top: 22px; left: 0; right: 0;
+  height: 8px;
+  background: linear-gradient(to bottom, var(--gold-light), var(--gold-dark), var(--gold-light));
+  z-index: 10001;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  border-radius: 4px;
+}
+
+
+
+/* Open state — JS adds .open to #curtain-container */
+#curtain-container.open .curtain-left  { transform: translateX(-100%); }
+#curtain-container.open .curtain-right { transform: translateX(100%); }
+/* Soften valance during opening */
+#curtain-container.open::before { opacity: 0; transition: opacity 0.8s ease-in-out; }
+
+/* Hide curtain after animation completes */
+#curtain-container.done { display: none; }
+
+/* ============================================================
+   AMBIENT PETALS / PARTICLES
+   ============================================================ */
+#petals-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -30px;
+  font-size: 1rem;
+  opacity: 0;
+  animation: petalFall linear infinite;
+  will-change: transform, opacity;
+  user-select: none;
+}
+
+@keyframes petalFall {
+  0%   { opacity: 0; transform: translateY(0) rotate(0deg) scale(1); }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(110vh) rotate(720deg) scale(0.5); }
+}
+
+/* ============================================================
+   INVITATION WRAPPER
+   ============================================================ */
+#invitation-wrapper {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  /* textured background */
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 50% 0%, #f5ead8 0%, var(--cream) 60%, #ede0c4 100%);
+  background-size: 300px 300px, cover;
+}
+
+#invitation-wrapper.hidden { display: none; }
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+.card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  /* Default invisible state */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(18px) scale(0.96);
+  filter: blur(2px);
+  /* Smooth elegant transition for all animated properties */
+  transition:
+    opacity  0.62s ease-in-out,
+    transform 0.62s cubic-bezier(0.16, 1, 0.3, 1),
+    filter   0.62s ease-in-out;
+  will-change: opacity, transform, filter;
+}
+
+.card-inner {
+  position: relative;
+  max-width: 540px;
+  width: 100%;
+  background:
+    /* paper texture overlay */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23p)' opacity='0.045'/%3E%3C/svg%3E"),
+    linear-gradient(160deg, var(--ivory) 0%, #fdf5e6 50%, #faf0dc 100%);
+  background-size: 200px 200px, cover;
+  border: 1px solid rgba(184,150,46,0.3);
+  outline: 1px solid rgba(184,150,46,0.12);
+  outline-offset: 6px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 3rem 3rem 2.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Inner gold corner brackets */
+.card-inner::before,
+.card-inner::after {
+  content: '';
+  position: absolute;
+  width: 28px; height: 28px;
+  border-color: var(--gold);
+  border-style: solid;
+  opacity: 0.55;
+}
+.card-inner::before {
+  top: 14px; left: 14px;
+  border-width: 1.5px 0 0 1.5px;
+}
+.card-inner::after {
+  bottom: 14px; right: 14px;
+  border-width: 0 1.5px 1.5px 0;
+}
+
+/* Extra corner brackets via a wrapper pseudo */
+.card-inner > .ornament-top { /* handled below */ }
+
+/* ---- Card state classes ---- */
+
+/* Fully visible and interactive */
+.card.active-card {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Hard-off state — snap instantly, no transition */
+.card.hidden-card {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(18px) scale(0.96) !important;
+  filter: blur(2px) !important;
+  transition: none !important;
+}
+
+/* Exit transitions — CSS transition on .card fires automatically */
+.card.exit-to-left {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-52px) scale(0.97);
+  filter: blur(3px);
+}
+
+.card.exit-to-right {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(52px) scale(0.97);
+  filter: blur(3px);
+}
+
+/*
+  Entry start positions — transition: none so the browser
+  registers the offset INSTANTLY before the transition fires.
+  JS removes this class and adds .active-card in the same frame
+  after a forced reflow, triggering a smooth entrance transition.
+*/
+.card.enter-from-right {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(58px) scale(0.96);
+  filter: blur(3px);
+  transition: none !important;
+}
+
+.card.enter-from-left {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-58px) scale(0.96);
+  filter: blur(3px);
+  transition: none !important;
+}
+
+/* First card reveal after curtain opens */
+.curtain-reveal {
+  animation: curtainReveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes curtainReveal {
+  from { opacity: 0; transform: scale(0.93) translateY(12px); filter: blur(5px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0);     filter: blur(0); }
+}
+
+/* ============================================================
+   ORNAMENTS
+   ============================================================ */
+.ornament { display: block; line-height: 0; }
+.ornament svg { width: 52px; height: 13px; }
+.ornament-top  { margin-bottom: 0.5rem; }
+.ornament-bottom { margin-top: 0.5rem; }
+
+/* ============================================================
+   CARD LABEL
+   ============================================================ */
+.card-label {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 1.6rem;
+}
+
+/* ============================================================
+   CARD 1 — COUPLE NAMES
+   ============================================================ */
+.groom-name,
+.bride-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 8vw, 4.2rem);
+  font-weight: 700;
+  color: var(--brown);
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  animation: nameReveal 0.8s ease both;
+}
+.groom-name { animation-delay: 0.1s; }
+.bride-name { animation-delay: 0.3s; }
+
+@keyframes nameReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.ampersand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0.7rem 0;
+}
+
+.ampersand-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+
+.ampersand {
+  font-family: var(--font-serif);
+  font-size: 2.8rem;
+  font-style: italic;
+  color: var(--gold);
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(184,150,46,0.3));
+}
+
+.card-tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--brown-light);
+  margin-top: 1rem;
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   CARD 2 — INVITATION TEXT
+   ============================================================ */
+.invitation-body {
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.06rem;
+  line-height: 2.0;
+  letter-spacing: 0.015em;
+  color: var(--brown);
+  margin: 0.7rem 0;
+  font-weight: 400;
+}
+.invitation-body.italic {
+  font-style: italic;
+  color: var(--brown-light);
+  font-size: 1.08rem;
+  line-height: 2.0;
+}
+
+.invitation-quote {
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.0rem;
+  color: var(--gold-dark);
+  letter-spacing: 0.025em;
+  line-height: 1.85;
+  margin-top: 0.5rem;
+}
+
+/* ============================================================
+   GOLD DIVIDER
+   ============================================================ */
+.gold-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1.4rem 0;
+}
+.gold-divider.slim { margin: 0.9rem 0; }
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold-light), transparent);
+}
+
+.divider-gem svg {
+  width: 6px; height: 6px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 2px rgba(184,150,46,0.35));
+}
+
+.divider-text {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   CARD 3 — DATE & COUNTDOWN
+   ============================================================ */
+.date-display {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0.8rem 0 0.4rem;
+}
+
+.date-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.date-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
+  font-weight: 600;
+  color: var(--brown);
+  line-height: 1.1;
+}
+
+.date-sub {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-top: 2px;
+}
+
+.date-sep {
+  font-size: 2rem;
+  color: var(--gold);
+  padding-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.wedding-time {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--brown-light);
+  margin: 0.3rem 0 0.5rem;
+  letter-spacing: 0.06em;
+}
+.wedding-time strong {
+  color: var(--brown);
+  font-weight: 600;
+}
+
+/* Countdown timer */
+.countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.count-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(145deg, rgba(184,150,46,0.08), rgba(184,150,46,0.02));
+  border: 1px solid rgba(184,150,46,0.25);
+  border-radius: var(--radius);
+  padding: 0.55rem 0.9rem;
+  min-width: 58px;
+}
+
+.count-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-weight: 600;
+  color: var(--brown);
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.count-label {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-top: 3px;
+}
+
+.count-colon {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--gold);
+  font-weight: 300;
+  padding-bottom: 1rem;
+  line-height: 1;
+}
+
+/* ============================================================
+   CARD 4 — VENUE
+   ============================================================ */
+.venue-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4.5vw, 2rem);
+  font-weight: 600;
+  color: var(--brown);
+  letter-spacing: 0.04em;
+  margin: 0.5rem 0 0.7rem;
+  line-height: 1.3;
+}
+
+.venue-address {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-size: 1.05rem;
+  color: var(--brown-light);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.map-wrapper {
+  width: 100%;
+  aspect-ratio: 16/7;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(184,150,46,0.25);
+  box-shadow: 0 4px 20px rgba(92,61,30,0.12);
+  margin-bottom: 1rem;
+}
+
+.map-wrapper iframe {
+  width: 100%; height: 100%;
+  border: none;
+  display: block;
+}
+
+.btn-map {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  text-decoration: none;
+  border: 1px solid rgba(184,150,46,0.4);
+  padding: 0.55rem 1.4rem;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+  background: rgba(184,150,46,0.04);
+}
+.btn-map svg { width: 15px; height: 15px; stroke: var(--gold); }
+.btn-map:hover {
+  background: rgba(184,150,46,0.12);
+  border-color: var(--gold);
+  color: var(--brown);
+}
+
+/* ============================================================
+   CARD 5 — CLOSING
+   ============================================================ */
+.heart-bloom {
+  font-size: 2.6rem;
+  color: #c0392b;
+  display: block;
+  margin-bottom: 0.4rem;
+  animation: heartbeat 1.4s ease-in-out infinite;
+  filter: drop-shadow(0 2px 8px rgba(192,57,43,0.4));
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15%       { transform: scale(1.18); }
+  30%       { transform: scale(1); }
+  45%       { transform: scale(1.1); }
+  60%       { transform: scale(1); }
+}
+
+.closing-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 6vw, 2.8rem);
+  font-weight: 700;
+  color: var(--brown);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.9rem;
+}
+
+.closing-body {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--brown-light);
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.closing-names {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--gold-dark);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.btn-rsvp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--brown), var(--brown-light));
+  border: 1px solid var(--gold-dark);
+  padding: 0.7rem 2rem;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(92,61,30,0.3);
+}
+.btn-rsvp svg { width: 16px; height: 16px; stroke: var(--gold-light); }
+.btn-rsvp:hover {
+  background: linear-gradient(135deg, var(--brown-light), var(--brown));
+  box-shadow: 0 6px 22px rgba(92,61,30,0.4);
+  transform: translateY(-1px);
+}
+
+.btn-restart {
+  background: none;
+  border: 1px solid rgba(184,150,46,0.25);
+  color: var(--gold-dark);
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.85rem;
+  cursor: pointer;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+  opacity: 0.75;
+}
+.btn-restart:hover {
+  background: rgba(184,150,46,0.08);
+  border-color: var(--gold);
+}
+
+/* ============================================================
+   NAVIGATION BUTTONS
+   ============================================================ */
+.card-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 1.8rem;
+  flex-wrap: wrap;
+}
+
+.btn-next,
+.btn-prev {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+  padding: 0.6rem 1.6rem;
+}
+
+.btn-next {
+  color: var(--ivory);
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  border: 1px solid var(--gold-dark);
+  box-shadow: 0 4px 15px rgba(184,150,46,0.3);
+}
+.btn-next:hover {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  box-shadow: 0 6px 22px rgba(184,150,46,0.5);
+  transform: translateY(-1px);
+}
+
+.btn-prev {
+  color: var(--gold-dark);
+  background: transparent;
+  border: 1px solid rgba(184,150,46,0.35);
+}
+.btn-prev:hover {
+  background: rgba(184,150,46,0.08);
+  border-color: var(--gold);
+}
+
+.btn-arrow {
+  width: 15px; height: 15px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.btn-arrow.flip { transform: scaleX(-1); }
+
+/* Animated triple-heart divider (card 2) */
+.divider-hearts {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.dh {
+  font-size: 0.7rem;
+  color: #c0392b;
+  display: inline-block;
+  animation: heartShimmer 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 3px rgba(192,57,43,0.5));
+}
+.dh1 { animation-delay: 0s;    font-size: 0.6rem; opacity: 0.7; }
+.dh2 { animation-delay: 0.3s;  font-size: 0.85rem; }
+.dh3 { animation-delay: 0.6s;  font-size: 0.6rem; opacity: 0.7; }
+
+@keyframes heartShimmer {
+  0%, 100% { transform: scale(1);    opacity: 0.7; }
+  30%       { transform: scale(1.35); opacity: 1; filter: drop-shadow(0 0 6px rgba(192,57,43,0.7)); }
+  60%       { transform: scale(0.9);  opacity: 0.65; }
+}
+
+/* ============================================================
+   COUNT FLIP ANIMATION
+   ============================================================ */
+.flip-anim {
+  animation: flipNum 0.3s ease both;
+}
+@keyframes flipNum {
+  0%   { transform: translateY(-8px); opacity: 0; }
+  100% { transform: none; opacity: 1; }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 600px) {
+  /* Cards are centered; card-inner scrolls internally for long content */
+  .card {
+    padding: 0.75rem;
+    align-items: center;
+    padding-top: 0;
+  }
+
+  .card-inner {
+    padding: 1.8rem 1.2rem 1.6rem;
+    max-height: calc(100dvh - 1.5rem);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 0;
+  }
+
+  .map-wrapper { aspect-ratio: 4/3; }
+
+  .count-box { min-width: 44px; padding: 0.4rem 0.55rem; }
+
+  .groom-name, .bride-name { font-size: clamp(2rem, 10vw, 3rem); }
+
+  .card-nav {
+    margin-top: 1.4rem;
+    /* always visible — padding keeps it away from viewport edge */
+    padding-bottom: 0.5rem;
+  }
+
+  .btn-next, .btn-prev {
+    font-size: 0.7rem;
+    padding: 0.55rem 1.1rem;
+    /* prevent buttons from being too small to tap */
+    min-height: 42px;
+  }
+
+  .date-num { font-size: clamp(1.3rem, 6vw, 2rem); }
+
+  .card-inner::before, .card-inner::after { width: 18px; height: 18px; }
+  .card-inner::before { top: 9px; left: 9px; }
+  .card-inner::after  { bottom: 9px; right: 9px; }
+}
+
+@media (max-height: 650px) {
+  .card-inner {
+    max-height: calc(100dvh - 1.5rem);
+    overflow-y: auto;
+    margin: 0 auto;
+  }
+}
+
+/* ============================================================
+   ACCESSIBILITY — reduce motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
