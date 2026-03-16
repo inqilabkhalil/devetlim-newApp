@@ -11,8 +11,8 @@ export default function SiteFooter() {
   return (
     <footer
       style={{
-        borderTop: '1px solid #f0f0f0',
-        background: '#fff',
+        borderTop: '1px solid var(--border-soft)',
+        background: 'var(--surface-1)',
         padding: '48px 0 32px',
         marginTop: 80,
       }}
@@ -33,12 +33,12 @@ export default function SiteFooter() {
               alt="Dəvətlim"
               width={120}
               height={44}
-              style={{ objectFit: 'contain', mixBlendMode: 'multiply', marginBottom: 12 }}
+              style={{ objectFit: 'contain', marginBottom: 12 }}
             />
             <p
               style={{
                 fontSize: 13,
-                color: '#6b7280',
+                color: 'var(--color-text-light)',
                 lineHeight: 1.7,
                 maxWidth: 220,
               }}
@@ -142,7 +142,7 @@ export default function SiteFooter() {
         {/* Bottom bar */}
         <div
           style={{
-            borderTop: '1px solid rgba(201,169,110,0.15)',
+            borderTop: '1px solid var(--border-soft)',
             paddingTop: 20,
             display: 'flex',
             justifyContent: 'space-between',

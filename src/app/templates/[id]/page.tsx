@@ -52,13 +52,13 @@ export default function TemplateDetailPage() {
   const nextTemplate = templates[(templateIndex + 1) % templates.length];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#fff' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--surface-1)' }}>
       {/* Top bar */}
       <div
         style={{
           height: 58,
-          background: '#fff',
-          borderBottom: '1px solid #e8e8e8',
+          background: 'var(--surface-1)',
+          borderBottom: '1px solid var(--border-soft)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -79,7 +79,7 @@ export default function TemplateDetailPage() {
             cursor: 'pointer',
             fontFamily: 'var(--font-sans)',
             fontSize: 13,
-            color: '#6b7280',
+            color: 'var(--color-text-light)',
             padding: 0,
           }}
         >
@@ -101,8 +101,8 @@ export default function TemplateDetailPage() {
               width: 30,
               height: 30,
               borderRadius: 999,
-              border: '1px solid #e5e7eb',
-              background: '#fff',
+              border: '1px solid var(--border-soft)',
+              background: 'var(--surface-1)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -115,7 +115,7 @@ export default function TemplateDetailPage() {
             style={{
               fontFamily: 'var(--font-serif)',
               fontSize: 17,
-              color: '#111',
+              color: 'var(--color-text)',
               fontWeight: 500,
             }}
           >
@@ -128,8 +128,8 @@ export default function TemplateDetailPage() {
               width: 30,
               height: 30,
               borderRadius: 999,
-              border: '1px solid #e5e7eb',
-              background: '#fff',
+              border: '1px solid var(--border-soft)',
+              background: 'var(--surface-1)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -150,8 +150,8 @@ export default function TemplateDetailPage() {
             fontWeight: 600,
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
-            color: '#fff',
-            background: '#111',
+            color: 'var(--cta-text)',
+            background: 'var(--cta-bg)',
             padding: '8px 16px',
             borderRadius: 100,
             textDecoration: 'none',
@@ -174,8 +174,8 @@ export default function TemplateDetailPage() {
       >
         <div
           style={{
-            background: '#fff',
-            border: '1px solid #ececec',
+            background: 'var(--surface-1)',
+            border: '1px solid var(--border-soft)',
             borderRadius: 16,
             padding: '24px 22px',
           }}
@@ -197,7 +197,7 @@ export default function TemplateDetailPage() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(30px, 4vw, 44px)',
               fontWeight: 400,
-              color: '#111',
+              color: 'var(--color-text)',
               marginBottom: 12,
             }}
           >
@@ -208,7 +208,7 @@ export default function TemplateDetailPage() {
             style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 14,
-              color: '#6b7280',
+              color: 'var(--color-text-light)',
               lineHeight: 1.7,
               marginBottom: 20,
             }}
@@ -224,16 +224,16 @@ export default function TemplateDetailPage() {
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14 }}>
-              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: '#6b7280' }}>Qiymət</span>
-              <strong style={{ fontFamily: 'var(--font-serif)', fontSize: 22, color: '#111', fontWeight: 600 }}>{template.price}</strong>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-text-light)' }}>Qiymət</span>
+              <strong style={{ fontFamily: 'var(--font-serif)', fontSize: 22, color: 'var(--color-text)', fontWeight: 600 }}>{template.price}</strong>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14 }}>
-              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: '#6b7280' }}>Hazırlanma</span>
-              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: '#111' }}>1-2 iş günü</span>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-text-light)' }}>Hazırlanma</span>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--color-text)' }}>1-2 iş günü</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14 }}>
-              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: '#6b7280' }}>Dəstək</span>
-              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: '#111' }}>WhatsApp 24/7</span>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-text-light)' }}>Dəstək</span>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--color-text)' }}>WhatsApp 24/7</span>
             </div>
           </div>
 
@@ -251,8 +251,8 @@ export default function TemplateDetailPage() {
                 fontWeight: 600,
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
-                color: '#111',
-                border: '1.5px solid #111',
+                color: 'var(--color-text)',
+                border: '1.5px solid var(--color-text)',
                 borderRadius: 100,
                 padding: '10px 18px',
                 textDecoration: 'none',
@@ -271,8 +271,8 @@ export default function TemplateDetailPage() {
                 fontWeight: 600,
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
-                color: '#fff',
-                background: '#111',
+                color: 'var(--cta-text)',
+                background: 'var(--cta-bg)',
                 borderRadius: 100,
                 padding: '11px 20px',
                 textDecoration: 'none',
@@ -286,10 +286,10 @@ export default function TemplateDetailPage() {
         <div
           id="template-preview"
           style={{
-            border: '1px solid #ececec',
+            border: '1px solid var(--border-soft)',
             borderRadius: 16,
             overflow: 'hidden',
-            background: '#fff',
+            background: 'var(--surface-1)',
             minHeight: '65vh',
           }}
         >

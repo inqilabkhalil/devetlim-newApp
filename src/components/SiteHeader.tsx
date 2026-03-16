@@ -2,13 +2,34 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 
 const WA = 'https://wa.me/message/PIDOVTOA4YRHI1';
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+  useEffect(() => {
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('theme-mode') : null;
+    const prefersDark = typeof window !== 'undefined'
+      ? window.matchMedia('(prefers-color-scheme: dark)').matches
+      : false;
+    const initialTheme = saved === 'dark' || saved === 'light'
+      ? saved
+      : (prefersDark ? 'dark' : 'light');
+
+    document.documentElement.setAttribute('data-theme', initialTheme);
+    setTheme(initialTheme);
+  }, []);
+
+  function toggleTheme() {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme);
+    localStorage.setItem('theme-mode', nextTheme);
+    document.documentElement.setAttribute('data-theme', nextTheme);
+  }
 
   function navClick(e: React.MouseEvent<HTMLAnchorElement>, id: string) {
     e.preventDefault();
@@ -22,8 +43,8 @@ export default function SiteHeader() {
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        background: 'rgba(255,255,255,0.96)',
-        borderBottom: '1px solid #f0f0f0',
+        background: 'var(--header-bg)',
+        borderBottom: '1px solid var(--border-soft)',
         backdropFilter: 'blur(16px)',
       }}
     >
@@ -44,7 +65,11 @@ export default function SiteHeader() {
             width={140}
             height={52}
             priority
-            style={{ objectFit: 'contain', mixBlendMode: 'multiply' }}
+            style={{
+              objectFit: 'contain',
+              mixBlendMode: theme === 'dark' ? 'normal' : 'multiply',
+              filter: theme === 'dark' ? 'brightness(1.12) contrast(1.02)' : 'none',
+            }}
           />
         </Link>
 
@@ -66,7 +91,7 @@ export default function SiteHeader() {
                 fontSize: 13,
                 fontWeight: 500,
                 letterSpacing: '0.04em',
-                color: '#444',
+                color: 'var(--header-link)',
                 textDecoration: 'none',
                 cursor: 'pointer',
               }}
@@ -74,13 +99,34 @@ export default function SiteHeader() {
               {l.label}
             </a>
           ))}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Gündüz rejiminə keç' : 'Gecə rejiminə keç'}
+            title={theme === 'dark' ? 'Gündüz rejimi' : 'Gecə rejimi'}
+            style={{
+              width: 38,
+              height: 38,
+              borderRadius: 999,
+              border: '1px solid var(--theme-toggle-border)',
+              background: 'var(--theme-toggle-bg)',
+              color: 'var(--theme-toggle-icon)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
           <a
             href={WA}
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              background: '#111',
-              color: '#fff',
+              background: 'var(--cta-bg)',
+              color: 'var(--cta-text)',
               fontFamily: 'var(--font-sans)',
               fontSize: 12,
               fontWeight: 600,
@@ -114,8 +160,8 @@ export default function SiteHeader() {
       {open && (
         <div
           style={{
-            background: '#fff',
-            borderTop: '1px solid #f0f0f0',
+            background: 'var(--surface-1)',
+            borderTop: '1px solid var(--border-soft)',
             padding: '16px 24px 24px',
             display: 'flex',
             flexDirection: 'column',
@@ -133,7 +179,7 @@ export default function SiteHeader() {
               style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 14,
-                color: '#111',
+                color: 'var(--color-text)',
                 textDecoration: 'none',
                 cursor: 'pointer',
               }}
@@ -141,13 +187,38 @@ export default function SiteHeader() {
               {l.label}
             </a>
           ))}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Gündüz rejiminə keç' : 'Gecə rejiminə keç'}
+            style={{
+              width: '100%',
+              height: 40,
+              borderRadius: 100,
+              border: '1px solid var(--theme-toggle-border)',
+              background: 'var(--theme-toggle-bg)',
+              color: 'var(--theme-toggle-icon)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              cursor: 'pointer',
+              fontFamily: 'var(--font-sans)',
+              fontSize: 12,
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+            }}
+          >
+            {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+            {theme === 'dark' ? 'Gündüz' : 'Gecə'}
+          </button>
           <a
             href={WA}
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              background: '#111',
-              color: '#fff',
+              background: 'var(--cta-bg)',
+              color: 'var(--cta-text)',
               fontFamily: 'var(--font-sans)',
               fontSize: 12,
               fontWeight: 600,

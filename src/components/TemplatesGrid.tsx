@@ -64,7 +64,7 @@ export default function TemplatesGrid() {
         style={{
           padding: '80px 0 48px',
           textAlign: 'center',
-          background: '#fff',
+          background: 'var(--surface-1)',
         }}
       >
         <div className="page-container">
@@ -73,7 +73,7 @@ export default function TemplatesGrid() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(40px, 7vw, 68px)',
               fontWeight: 400,
-              color: '#111',
+              color: 'var(--color-text)',
               lineHeight: 1.1,
               marginBottom: 20,
               letterSpacing: '-1px',
@@ -99,8 +99,8 @@ export default function TemplatesGrid() {
             rel="noopener noreferrer"
             style={{
               display: 'inline-block',
-              background: '#111',
-              color: '#fff',
+              background: 'var(--cta-bg)',
+              color: 'var(--cta-text)',
               fontFamily: 'var(--font-sans)',
               fontSize: 13,
               fontWeight: 600,
@@ -118,7 +118,7 @@ export default function TemplatesGrid() {
       {/* ── Category filter ── */}
       <section
         id="sablonlar"
-        style={{ padding: '28px 0 0', position: 'sticky', top: 68, zIndex: 50, background: '#fff', borderBottom: '1px solid #f0f0f0' }}
+        style={{ padding: '28px 0 0', position: 'sticky', top: 68, zIndex: 50, background: 'var(--surface-1)', borderBottom: '1px solid var(--border-soft)' }}
       >
         <div
           className="page-container"
@@ -135,9 +135,9 @@ export default function TemplatesGrid() {
                 letterSpacing: '0.04em',
                 padding: '7px 18px',
                 borderRadius: 100,
-                border: active === cat ? '1.5px solid #111' : '1.5px solid #e5e7eb',
-                background: active === cat ? '#111' : '#fff',
-                color: active === cat ? '#fff' : '#6b7280',
+                border: active === cat ? '1.5px solid var(--color-text)' : '1.5px solid var(--border-soft)',
+                background: active === cat ? 'var(--color-text)' : 'var(--surface-1)',
+                color: active === cat ? 'var(--surface-1)' : 'var(--color-text-light)',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
               }}
@@ -149,8 +149,8 @@ export default function TemplatesGrid() {
       </section>
 
       {/* ── Grid ── */}
-      <section style={{ padding: '40px 0 80px', background: '#fff' }}>
-        <div className="page-container" style={{ background: '#fff' }}>
+      <section style={{ padding: '40px 0 80px', background: 'var(--surface-1)' }}>
+        <div className="page-container" style={{ background: 'var(--surface-1)' }}>
           <div
             style={{
               display: 'grid',
@@ -195,9 +195,9 @@ export default function TemplatesGrid() {
         id="ozel-dizayn"
         style={{
           padding: '84px 0',
-          background: 'linear-gradient(180deg, #f8f9fb 0%, #ffffff 100%)',
-          borderTop: '1px solid #f0f0f0',
-          borderBottom: '1px solid #f0f0f0',
+          background: 'linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%)',
+          borderTop: '1px solid var(--border-soft)',
+          borderBottom: '1px solid var(--border-soft)',
         }}
       >
         <div className="page-container" style={{ maxWidth: 900, textAlign: 'center' }}>
@@ -242,8 +242,8 @@ export default function TemplatesGrid() {
             rel="noopener noreferrer"
             style={{
               display: 'inline-block',
-              background: '#111',
-              color: '#fff',
+              background: 'var(--cta-bg)',
+              color: 'var(--cta-text)',
               fontFamily: 'var(--font-sans)',
               fontSize: 12,
               fontWeight: 600,
