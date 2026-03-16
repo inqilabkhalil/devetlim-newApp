@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dəvətnamə</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Envelope Entrance -->
+    <div id="envelope-wrapper">
+        <div class="envelope" id="envelope">
+            <div class="flap"></div>
+            <div class="envelope-seal">A <span style="font-size: 0.8rem">&</span> B</div>
+            <div class="envelope-content text-center">
+                <h2>BİZ EVLƏNİRİK</h2>
+                <p>Açmaq üçün toxunun</p>
+            </div>
+            <div class="envelope-front"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" style="opacity: 0; pointer-events: none; overflow: hidden; height: 100vh;">
+        
+        <!-- Hero Section -->
+        <section class="section hero-section text-center">
+            <div class="container fade-in-up">
+                <div class="couple-photo-wrapper">
+                    <img src="assets/couple.png" alt="Bride and Groom" class="couple-photo">
+                </div>
+                <h1 class="names mt-2">Ad <span>&</span> Ad</h1>
+                <p class="subtitle mt-1">Sizi xoşbəxt günümüzə dəvət edirik</p>
+            </div>
+        </section>
+
+        <!-- Invitation Message & Countdown -->
+        <section class="section bg-light text-center reveal">
+            <div class="container">
+                <h2 class="section-title">Dəvət</h2>
+                <p class="message-text">
+                    Həyatımızın ən özəl günündə xoşbəxtliyimizi sizinlə bölüşməkdən qürur duyarıq. 
+                    Bizi bu əlamətdar gündə tək qoymayacağınıza ümid edirik.
+                </p>
+                
+                <div class="date-display mt-2">
+                    <h3>25 . 05 . 2026</h3>
+                    <p>Bazar Günü, Saat 18:00</p>
+                </div>
+
+                <div class="countdown-container mt-2">
+                    <div class="time-box">
+                        <span id="days">00</span>
+                        <label>Gün</label>
+                    </div>
+                    <div class="time-box">
+                        <span id="hours">00</span>
+                        <label>Saat</label>
+                    </div>
+                    <div class="time-box">
+                        <span id="minutes">00</span>
+                        <label>Dəqiqə</label>
+                    </div>
+                    <div class="time-box">
+                        <span id="seconds">00</span>
+                        <label>Saniyə</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location & Google Maps -->
+        <section class="section text-center reveal">
+            <div class="container">
+                <h2 class="section-title">Məkan</h2>
+                <p class="address-text">
+                    <strong>Məkanın Adı</strong><br>
+                    Şəhər, Rayon, Küçə adı 123
+                </p>
+                <div class="map-wrapper mt-2">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.4284901456257!2d49.86709241564757!3d40.37719087936982!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d1746f32e17%3A0xe5a3c2605f159a2!2sBaku%2C%20Azerbaijan!5e0!3m2!1sen!2s!4v1680000000000!5m2!1sen!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Words -->
+        <section class="section bg-light text-center reveal">
+            <div class="container">
+                <h2 class="names" style="font-size: 3rem;">Təşəkkürlər</h2>
+                <p class="message-text mt-1" style="max-width: 500px; margin: 0 auto; font-style: italic;">
+                    Gəldiyiniz üçün əvvəlcədən minnətdarlığımızı bildiririk. Sizinlə görüşməyi səbirsizliklə gözləyirik.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

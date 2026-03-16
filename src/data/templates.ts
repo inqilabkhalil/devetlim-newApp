@@ -101,6 +101,15 @@ export const templates: Template[] = [
     price: '29 ₼',
     preview: '/sablonlar/bahar-zerafeti/preview.svg',
   },
+  {
+    id: 'saf-zeriflik',
+    name: 'Saf Zəriflik',
+    category: 'Toy',
+    color: '#5a637a',
+    folderPath: 'gravity-test',
+    price: '39 ₼',
+    preview: '/sablonlar/gravity-test/assets/background.png',
+  },
 ];
 
 export const categories: (TemplateCategory | 'Hamısı')[] = [

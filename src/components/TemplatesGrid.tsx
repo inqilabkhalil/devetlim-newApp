@@ -34,7 +34,7 @@ function getPreviewCandidates(template: Template): string[] {
   ];
 
   if (template.preview) {
-    return [...candidates.filter((src) => src !== template.preview), template.preview];
+    return [template.preview, ...candidates.filter((src) => src !== template.preview)];
   }
 
   return candidates;
@@ -149,8 +149,8 @@ export default function TemplatesGrid() {
       </section>
 
       {/* ── Grid ── */}
-      <section style={{ padding: '40px 0 80px' }}>
-        <div className="page-container">
+      <section style={{ padding: '40px 0 80px', background: '#fff' }}>
+        <div className="page-container" style={{ background: '#fff' }}>
           <div
             style={{
               display: 'grid',
@@ -262,7 +262,11 @@ export default function TemplatesGrid() {
       {/* ── About ── */}
       <section
         id="haqqimizda"
-        style={{ padding: '72px 0' }}
+        style={{
+          padding: '72px 0',
+          background: '#111',
+          borderTop: '1px solid rgba(255,255,255,0.08)',
+        }}
       >
         <div className="page-container" style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' }}>
           <p
@@ -271,7 +275,7 @@ export default function TemplatesGrid() {
               fontFamily: 'var(--font-sans)',
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
-              color: 'var(--color-gold)',
+              color: 'rgba(201,169,110,0.95)',
               marginBottom: 12,
             }}
           >
@@ -282,7 +286,7 @@ export default function TemplatesGrid() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(26px, 4vw, 40px)',
               fontWeight: 400,
-              color: 'var(--color-text)',
+              color: '#fff',
               marginBottom: 20,
             }}
           >
@@ -291,7 +295,7 @@ export default function TemplatesGrid() {
           <p
             style={{
               fontSize: 15,
-              color: 'var(--color-text-light)',
+              color: 'rgba(255,255,255,0.75)',
               lineHeight: 1.8,
               fontFamily: 'var(--font-sans)',
             }}
@@ -371,6 +375,8 @@ function TemplateCard({ template, isAnimating, isInteractive, onAnimate }: {
             <img
               src={currentPreview}
               alt={template.name}
+              loading="lazy"
+              decoding="async"
               onError={() => {
                 setPreviewIndex((prev) => {
                   if (prev >= previewCandidates.length - 1) return prev;

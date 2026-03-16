@@ -1,4 +1,11 @@
+'use client';
+
 import Image from 'next/image';
+
+function scrollTo(id: string) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
 
 export default function SiteFooter() {
   return (
@@ -56,19 +63,20 @@ export default function SiteFooter() {
               Keçidlər
             </div>
             {[
-              { label: 'Şablonlar', href: '/#sablonlar' },
-              { label: 'Qiymətlər', href: '/#qiymetler' },
-              { label: 'Haqqımızda', href: '/#haqqimizda' },
+              { label: 'Şablonlar', id: 'sablonlar' },
+              { label: 'Haqqımızda', id: 'haqqimizda' },
             ].map((l) => (
               <a
-                key={l.href}
-                href={l.href}
+                key={l.id}
+                href={`/#${l.id}`}
+                onClick={(e) => { e.preventDefault(); scrollTo(l.id); }}
                 style={{
                   display: 'block',
                   fontSize: 13,
                   color: 'var(--color-text-light)',
                   textDecoration: 'none',
                   marginBottom: 10,
+                  cursor: 'pointer',
                 }}
               >
                 {l.label}

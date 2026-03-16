@@ -10,6 +10,12 @@ const WA = 'https://wa.me/message/PIDOVTOA4YRHI1';
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
 
+  function navClick(e: React.MouseEvent<HTMLAnchorElement>, id: string) {
+    e.preventDefault();
+    setOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  }
+
   return (
     <header
       style={{
@@ -48,13 +54,13 @@ export default function SiteHeader() {
           className="hidden-mobile"
         >
           {[
-            { label: 'Şablonlar', href: '/#sablonlar' },
-            { label: 'Qiymətlər', href: '/#qiymetler' },
-            { label: 'Haqqımızda', href: '/#haqqimizda' },
+            { label: 'Şablonlar', id: 'sablonlar' },
+            { label: 'Haqqımızda', id: 'haqqimizda' },
           ].map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
+            <a
+              key={l.id}
+              href={`/#${l.id}`}
+              onClick={(e) => navClick(e, l.id)}
               style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 13,
@@ -62,10 +68,11 @@ export default function SiteHeader() {
                 letterSpacing: '0.04em',
                 color: '#444',
                 textDecoration: 'none',
+                cursor: 'pointer',
               }}
             >
               {l.label}
-            </Link>
+            </a>
           ))}
           <a
             href={WA}
@@ -116,23 +123,23 @@ export default function SiteHeader() {
           }}
         >
           {[
-            { label: 'Şablonlar', href: '/#sablonlar' },
-            { label: 'Qiymətlər', href: '/#qiymetler' },
-            { label: 'Haqqımızda', href: '/#haqqimizda' },
+            { label: 'Şablonlar', id: 'sablonlar' },
+            { label: 'Haqqımızda', id: 'haqqimizda' },
           ].map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
+            <a
+              key={l.id}
+              href={`/#${l.id}`}
+              onClick={(e) => navClick(e, l.id)}
               style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 14,
                 color: '#111',
                 textDecoration: 'none',
+                cursor: 'pointer',
               }}
             >
               {l.label}
-            </Link>
+            </a>
           ))}
           <a
             href={WA}
